@@ -164,8 +164,8 @@ export default function ViewRoute() {
                 <tr>
                   <th>{stop.number}</th>
                   <th>{stop.distance}</th>
-                  <th>{stop.latitude}</th>
-                  <th>{stop.longitude}</th>
+                  <th>{stop.latitude.toFixed(3)}</th>
+                  <th>{stop.longitude.toFixed(3)}</th>
                 </tr>
               );
             })}

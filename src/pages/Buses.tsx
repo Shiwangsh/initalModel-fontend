@@ -10,7 +10,7 @@ import Search from "../components/Search/Search";
 const AllCards = () => {
   const [buses, setBuses] = useState([]);
   const [route, setRoute] = useState();
-  const [search, setSearch] = useState<any>();
+  const [search, setSearch] = useState<any>(" ");
 
   const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const AllCards = () => {
     <>
       <Search
         setSearch={(search: any) => setSearch(search)}
-        placeHolder="Enter name to search"
+        placeHolder="Enter regNum to search"
       />
       <Link to="../createBus" className="p-2">
         Add Bus

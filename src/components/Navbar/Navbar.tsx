@@ -31,7 +31,7 @@ function Navibar() {
                 <FontAwesomeIcon icon={faUsers} className="pr-1" />
                 Users
               </Nav.Link>
-              <Nav.Link as={Link} to={"tickets"}>
+              <Nav.Link as={Link} to={"transactions"}>
                 <FontAwesomeIcon icon={faTicket} className="pr-1" />
                 Transactions
               </Nav.Link>

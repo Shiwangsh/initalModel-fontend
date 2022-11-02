@@ -8,45 +8,75 @@ import ErrorModal from "../ErrorModal";
 import SucessModal from "../SucessModal";
 
 const CreateRoute = () => {
-  const [fieldValue, setFieldValue] = useState<any>();
+  const [routeName, setRouteName] = useState<any>();
+  const [fieldValues, setFieldValues] = useState<any>();
   const [error, setError] = useState<any>();
   const [success, setSuccess] = useState<any>(false);
+  const [stops, setStops] = useState<any>([
+    // {
+    //   name: "",
+    //   number: 0,
+    //   distance: 0,
+    //   latitude: 0,
+    //   longitude: 0,
+    // },
+  ]);
 
   const navigate = useNavigate();
 
-  const handleChange = (e: any) => {
+  // const handleChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   setFieldValue({
+  //     ...fieldValue,
+  //     [name]: value,
+  //   });
+  // };
+
+  const handleStopChange = (e: any) => {
     const { name, value } = e.target;
-    setFieldValue({
-      ...fieldValue,
-      [name]: value,
-    });
+    setStops([
+      {
+        ...stops,
+        [name]: value,
+      },
+    ]);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit2 = async (e: any) => {
     e.preventDefault();
-    console.log(fieldValue);
-
-    const url = `http://localhost:9090/Routees/`;
-    await axios
-      .post(url, fieldValue)
-      .then((res) => {
-        console.log(res);
-
-        setSuccess(true);
-        setTimeout(() => navigate(0), 1000);
-      })
-      .catch((error) => {
-        // console.log(error.response.data.message);
-        if (error.response) {
-          console.log(error.response);
-          setError(error.response.data.message);
-        } else {
-          console.log("Error", error);
-        }
-      });
+    setFieldValues({
+      routeName,
+      ...stops,
+    });
+    console.log(fieldValues);
+    console.log(stops);
   };
+
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   console.log(fieldValue);
+
+  //   const url = `http://localhost:9090/Routees/`;
+  //   await axios
+  //     .post(url, fieldValue)
+  //     .then((res) => {
+  //       console.log(res);
+
+  //       setSuccess(true);
+  //       setTimeout(() => navigate(0), 1000);
+  //     })
+  //     .catch((error) => {
+  //       // console.log(error.response.data.message);
+  //       if (error.response) {
+  //         console.log(error.response);
+  //         setError(error.response.data.message);
+  //       } else {
+  //         console.log("Error", error);
+  //       }
+  //     });
+  // };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit2}>
       {error ? (
         <ErrorModal text={error} closePopup={() => setError(false)} />
       ) : null}
@@ -85,48 +115,174 @@ const CreateRoute = () => {
           <div className="card-body">
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Registration Number</p>
+                <p className="mb-0">Route Name</p>
               </div>
               <div className="col-sm-9">
                 <input
                   className="form-control rounded-left w-25"
-                  name="regNum"
+                  name="routeName"
                   //   value={fieldValue.name}
-                  onChange={handleChange}
+                  onChange={(e) => setRouteName(e.target.value)}
                 />
               </div>
             </div>
             <hr />
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Capacity</p>
+                <p className="mb-0">Stops : </p>
               </div>
-              <div className="col-sm-9">
+            </div>
+            {/* <hr /> */}
+            <div className="row">
+              <div className="col-sm-3">
+                <p className="mb-0">Stop Name</p>
+              </div>
+              <div className="col-sm-6">
                 <input
                   className="form-control rounded-left w-25"
-                  name="capacity"
+                  name="name"
                   //   value={fieldValue.email}
-                  onChange={handleChange}
+                  onChange={handleStopChange}
                 />
               </div>
             </div>
             <hr />
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Route ID</p>
+                <p className="mb-0">Stop Number</p>
               </div>
-              <div className="col-sm-9">
+              <div className="col-sm-6">
                 <input
                   className="form-control rounded-left w-25"
-                  name="route"
+                  name="number"
                   //   value={fieldValue.email}
-                  onChange={handleChange}
+                  onChange={handleStopChange}
+                />
+              </div>
+            </div>
+            <hr />
+            <div className="row">
+              <div className="col-sm-3">
+                <p className="mb-0">Distance</p>
+              </div>
+              <div className="col-sm-6">
+                <input
+                  className="form-control rounded-left w-25"
+                  name="distance"
+                  //   value={fieldValue.email}
+                  onChange={handleStopChange}
+                />
+              </div>
+            </div>
+            <hr />
+            <div className="row">
+              <div className="col-sm-3">
+                <p className="mb-0">latitude</p>
+              </div>
+              <div className="col-sm-6">
+                <input
+                  className="form-control rounded-left w-25"
+                  name="latitude"
+                  //   value={fieldValue.email}
+                  onChange={handleStopChange}
+                />
+              </div>
+            </div>
+
+            <hr />
+            <div className="row">
+              <div className="col-sm-3">
+                <p className="mb-0">longitude</p>
+              </div>
+              <div className="col-sm-6">
+                <input
+                  className="form-control rounded-left w-25"
+                  name="longitude"
+                  //   value={fieldValue.email}
+                  onChange={handleStopChange}
                 />
               </div>
             </div>
           </div>
 
           <hr />
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">Stops : </p>
+            </div>
+          </div>
+          {/* <hr /> */}
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">Stop Name</p>
+            </div>
+            <div className="col-sm-6">
+              <input
+                className="form-control rounded-left w-25"
+                name="name"
+                //   value={fieldValue.email}
+                onChange={handleStopChange}
+              />
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">Stop Number</p>
+            </div>
+            <div className="col-sm-6">
+              <input
+                className="form-control rounded-left w-25"
+                name="number"
+                //   value={fieldValue.email}
+                onChange={handleStopChange}
+              />
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">Distance</p>
+            </div>
+            <div className="col-sm-6">
+              <input
+                className="form-control rounded-left w-25"
+                name="distance"
+                //   value={fieldValue.email}
+                onChange={handleStopChange}
+              />
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">latitude</p>
+            </div>
+            <div className="col-sm-6">
+              <input
+                className="form-control rounded-left w-25"
+                name="latitude"
+                //   value={fieldValue.email}
+                onChange={handleStopChange}
+              />
+            </div>
+          </div>
+
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">longitude</p>
+            </div>
+            <div className="col-sm-6">
+              <input
+                className="form-control rounded-left w-25"
+                name="longitude"
+                //   value={fieldValue.email}
+                onChange={handleStopChange}
+              />
+            </div>
+          </div>
 
           <div className="login-wrap p-4">
             <button type="submit" className="btn btn-success">

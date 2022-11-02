@@ -13,7 +13,7 @@ import UserProfile from "./pages/UserProfile";
 
 import AllUsers from "./pages/Users";
 
-import EditCard from "./components/Card/EditCard";
+import EditCard from "./components/Card/ViewCard";
 import Tickets from "./pages/Tickets";
 import CreateUser from "./components/User/CreateUser";
 import CreateBus from "./components/Bus/CreateBus";
@@ -22,6 +22,9 @@ import Home from "./pages/Home";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import Notfound from "./pages/NotFound";
 import CurrentUser from "./pages/CurrentUser";
+import Transactions from "./pages/Transactions";
+import ViewTransaction from "./components/Transaction/ViewTransaction";
+import ViewCard from "./components/Card/ViewCard";
 
 function App() {
   return (
@@ -30,12 +33,13 @@ function App() {
         <Route path="/" element={<Login />}></Route>
         <Route path="dashboard" element={<AdminDashboard />}>
           <Route path="home" element={<Home />} />
-          <Route path="tickets" element={<Tickets />} />
+          <Route path="transactions" element={<Transactions />} />
+
           <Route path="cards" element={<Cards />} />
           <Route path="buses" element={<Buses />} />
           <Route path="users" element={<AllUsers />} />
           <Route path="routes" element={<BusRoutes />} />
-          <Route path="editCard" element={<EditCard />} />
+          <Route path="viewCard" element={<ViewCard />} />
           <Route path="viewRoute" element={<ViewRoute />} />
           <Route path="loadBalance" element={<LoadBalance />} />
           <Route path="userProfile" element={<UserProfile />} />
@@ -43,6 +47,7 @@ function App() {
           <Route path="createBus" element={<CreateBus />} />
           <Route path="createRoute" element={<CreateRoute />} />
           <Route path="currentUser" element={<CurrentUser />} />
+          <Route path="viewTransaction" element={<ViewTransaction />} />
         </Route>
         <Route path="401" element={<UnauthorizedPage />} />
         <Route path="*" element={<Notfound />} />

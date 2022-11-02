@@ -5,11 +5,10 @@ import Table from "react-bootstrap/Table";
 import Search from "../components/Search/Search";
 
 import ReactLoading from "react-loading";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
-import EditCard from "../components/Card/EditCard";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const AllCards = () => {
   const [cards, setcards] = useState([]);
@@ -19,7 +18,7 @@ const AllCards = () => {
   const [user, setUser] = useState();
 
   const [fetching, setFetching] = useState(true);
-  const [openEdit, setOpenEdit] = useState<any>(false);
+  // const [openEdit, setOpenEdit] = useState<any>(false);
   const [search, setSearch] = useState(" ");
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ const AllCards = () => {
   useEffect((): any => {
     if (currentCard) {
       console.log(currentCard);
-      navigate("../editCard", {
+      navigate("../viewCard", {
         state: { card: currentCard },
       });
     }

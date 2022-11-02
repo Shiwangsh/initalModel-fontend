@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import ReactLoading from "react-loading";
 
-import Form from "react-bootstrap/Form";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const EditCard = () => {
+const ViewCard = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   // console.log("location STATE->>>", location.state);
   const [card, setCard] = useState(location.state.card);
-  const [tickets, setTickets] = useState([]);
+  const [transactions, setTransactions] = useState<any>();
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
-    const getTickets = async () => {
-      console.log(location.state.card.uuid);
-
-      const url = `http://localhost:9090/tickets/${location.state.card.uuid}`;
-      const res = await axios.get(url);
-      const { data } = res;
-      console.log(data.tickets);
-      setTickets(data.tickets);
+    const getTransactions = async () => {
+      const url = `http://localhost:9090/transactions/${card.uuid}`;
+      await axios
+        .get(url)
+        .then((res) => {
+          const { data } = res;
+          setTransactions(data.transaction);
+          setFetching(false);
+        })
+        .catch((error) => console.log(error));
     };
-    getTickets();
-  }, [location.state.card.id, location.state.card.uuid]);
+    getTransactions();
+  }, [card.uuid, location.state]);
 
-  // console.log(card);
+  // console.log(transactions);
 
   /**
    * * FOR EDIT-- CURRENTLY VIEW ONLY
@@ -58,6 +63,9 @@ const EditCard = () => {
   //   });
   // };
   //   const [error, setError] = useState<any>();
+
+  if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
+
   return (
     <section style={{ backgroundColor: "#eee" }}>
       <div className="container">
@@ -100,16 +108,7 @@ const EditCard = () => {
               <p className="mb-0">Balance</p>
             </div>
             <div className="col-sm-9">
-              <p
-                className="text-muted mb-0"
-                // className="form-control rounded-left w-25"
-                // name="balance"
-                // value={fieldValue.balance}
-                // disabled
-                // onChange={handleChange}
-              >
-                {card.balance}
-              </p>
+              <p className="text-muted mb-0">{card.balance}</p>
             </div>
           </div>
 
@@ -123,72 +122,62 @@ const EditCard = () => {
               <p className="mb-0">{card.cardType}</p>
 
               {/* <Form.Select
-                aria-label="Default select example"
-                className=" w-25"
-                name="cardType"
-                // onChange={handleChange}
-                disabled
-                // value={fieldValue.cardType}
-              >
-                <option value="Standard">Standard</option>
-                <option value="Student">Student</option>
-                <option value="Senior">Senior</option>
-              </Form.Select> */}
+                  aria-label="Default select example"
+                  className=" w-25"
+                  name="cardType"
+                  // onChange={handleChange}
+                  disabled
+                  // value={fieldValue.cardType}
+                >
+                  <option value="Standard">Standard</option>
+                  <option value="Student">Student</option>
+                  <option value="Senior">Senior</option>
+                </Form.Select> */}
             </div>
           </div>
         </div>
         {/* <button type="submit" className="btn btn-success w-25">
-          Submit
-        </button> */}
+            Submit
+          </button> */}
       </div>
-      {/* SHOW ALL THE TRANSACTIONS OF THE CARD */}
-      <div className="login-wrap p-4">
-        <h3>Transactions</h3>
-        <Table striped borderless hover responsive>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Amount</th>
-              <th>Route</th>
-              <th>Stops</th>
-              <th>Card</th>
-              <th>Date and Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tickets.map((ticket, index) => {
-              return (
-                <tr key={index}>
-                  <td>{ticket["_id"]}</td>
-                  <td>{ticket["amount"]}</td>
-                  <td>{ticket["routeName"]}</td>
-                  <td>
-                    {ticket["firstStop"]} - {ticket["lastStop"]}
-                  </td>
-                  <td>{ticket["card"]}</td>
-                  <td>{ticket["createdAt"]}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+      <h3>Transactions</h3>
+      <Table striped borderless hover responsive>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Type</th>
+            {/* <th></th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((transaction: any, index: any) => {
+            return (
+              <tr key={index}>
+                <td>
+                  <small>{transaction["_id"]}</small>
+                </td>
+                <td>{transaction["status"]}</td>
+                <td>{transaction["type"]}</td>
+                <td>{transaction["createdAt"]}</td>
+                <td>
+                  <Button
+                    onClick={() =>
+                      navigate("../viewTransaction", {
+                        state: { transaction: transaction },
+                      })
+                    }
+                  >
+                    <FontAwesomeIcon icon={faEye} />
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </section>
-    // <Modal show={true}>
-    //   <Modal.Header>
-    //     <Modal.Title>Conformation</Modal.Title>
-    //   </Modal.Header>
-    //   <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
-    //   <Modal.Footer>
-    //     <Button variant="secondary" onClick={() => closePopup(true)}>
-    //       Close
-    //     </Button>
-    //     <Button variant="danger" onClick={() => closePopup(true)}>
-    //       Delete
-    //     </Button>
-    //   </Modal.Footer>
-    // </Modal>
   );
 };
 
-export default EditCard;
+export default ViewCard;

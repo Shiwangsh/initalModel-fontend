@@ -47,22 +47,6 @@ const AllRoute = () => {
     setRoute(data.route);
   };
 
-  //   const getUserOnClick = async (
-  //     userID: any,
-  //     e: React.MouseEvent<HTMLElement>
-  //   ) => {
-  //     e.preventDefault();
-  //     const url = ` http://localhost:9090/users/${userID}`;
-  //     const res = await axios.get(url);
-  //     const { data } = res;
-  //     console.log(data.user);
-  //     setUser(data.user);
-
-  //     // navigate("../userProfile", {
-  //     //   state: { user: user },
-  //     // });
-  //   };
-
   if (fetching) return <ReactLoading type="bubbles" color="#000000" />;
   return (
     <>
@@ -75,7 +59,7 @@ const AllRoute = () => {
         <Table striped borderless hover responsive>
           <thead>
             <tr>
-              <th>Route Name</th>
+              <th>Routes</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +70,7 @@ const AllRoute = () => {
                     {obj["routeName"]}
                     <br />
                     <Button onClick={(e) => getRouteOnClick(obj["_id"], e)}>
-                      {obj["_id"]}
+                      View Route details
                     </Button>
                   </td>
                 </tr>
