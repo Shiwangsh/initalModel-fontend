@@ -13,13 +13,15 @@ import UserProfile from "./pages/UserProfile";
 
 import AllUsers from "./pages/Users";
 
-import ReactLoading from "react-loading";
 import EditCard from "./components/Card/EditCard";
 import Tickets from "./pages/Tickets";
 import CreateUser from "./components/User/CreateUser";
 import CreateBus from "./components/Bus/CreateBus";
 import CreateRoute from "./components/Route/CreateRoute";
 import Home from "./pages/Home";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import Notfound from "./pages/NotFound";
+import CurrentUser from "./pages/CurrentUser";
 
 function App() {
   return (
@@ -40,7 +42,10 @@ function App() {
           <Route path="createUser" element={<CreateUser />} />
           <Route path="createBus" element={<CreateBus />} />
           <Route path="createRoute" element={<CreateRoute />} />
+          <Route path="currentUser" element={<CurrentUser />} />
         </Route>
+        <Route path="401" element={<UnauthorizedPage />} />
+        <Route path="*" element={<Notfound />} />
       </Routes>
     </BrowserRouter>
   );

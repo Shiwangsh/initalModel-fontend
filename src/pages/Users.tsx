@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import AuthHeader from "../services/auth-header";
 // import { Button } from "react-bootstrap";
 
 import ReactLoading from "react-loading";
@@ -22,7 +23,9 @@ const AllUsers = () => {
       const url = `
         http://localhost:9090/users?search=${search}
       `;
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        headers: AuthHeader(),
+      });
       const { data } = res;
       setUsers(data.users);
       setFetching(false);

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import BarChart from "../components/Charts/BarChart";
 import LineChart from "../components/Charts/LineChart";
 import PieChart from "../components/Charts/PieChart";
+import authHeader from "../services/auth-header";
 
 const Home = () => {
   const [users, setUsers] = useState();
@@ -16,7 +17,9 @@ const Home = () => {
       const url = `
         http://localhost:9090/users
       `;
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        headers: authHeader(),
+      });
       const { data } = res;
       setUsers(data.users.length);
     };

@@ -1,47 +1,14 @@
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import DeleteUser from "./DeleteUser";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
-  const [open, setOpen] = useState<any>(false);
-  const [deleteID, setDeleteID] = useState<any>();
-  const [card, setCard] = useState();
-  const [cardID, setCardID] = useState();
-
-  const navigate = useNavigate();
-
-  const handleDelete = () => {
-    setOpen(true);
-    setDeleteID(user._id);
-  };
-
-  useEffect(() => {
-    const getCardDetails = async (userID: any) => {
-      const url = `http://localhost:9090/cards/user/${userID}`;
-      const res = await axios.get(url);
-      console.log(res.data.card);
-      setCard(res.data.card);
-      // console.log(card);
-
-      setCardID(res.data.card.uuid);
-    };
-    getCardDetails(user._id);
-  }, [user._id]);
-
-  const navigateToCard = (e: any) => {
-    e.preventDefault();
-    navigate("../editCard", { state: { card: card } });
-  };
-
+const CurrentUser = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "");
   return (
     <>
-      {open ? (
+      {/* {open ? (
         <DeleteUser id={user._id} closePopup={() => setOpen(false)} />
-      ) : null}
+      ) : null} */}
 
       <section style={{ backgroundColor: "#eee" }}>
         <div className="container py-5">
@@ -52,14 +19,8 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
                 className="bg-light rounded-3 p-3 mb-4"
               >
                 <ol className="breadcrumb mb-0">
-                  <li className="breadcrumb-item">
-                    <Link to="../../dashboard">Home</Link>
-                  </li>
-                  <li className="breadcrumb-item">
-                    <Link to="../users">Users</Link>
-                  </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    User Profile
+                    Your User Profile
                   </li>
                 </ol>
               </nav>
@@ -81,18 +42,6 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
               </div>
             </div>
             <div className="col-lg-8">
-              <div className="d-flex flex-row-reverse pb-2">
-                <Button
-                  variant="danger"
-                  onClick={() => handleDelete()}
-                  className="ml-3"
-                >
-                  <FontAwesomeIcon icon={faTrash} className="pl-1" />
-                </Button>
-                <Button variant="info" onClick={() => onActionChange("edit")}>
-                  <FontAwesomeIcon icon={faPenToSquare} className="pl-1" />
-                </Button>
-              </div>
               <div className="card mb-4 shadow">
                 <div className="card-body">
                   <div className="row">
@@ -143,15 +92,10 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
                   </div>
 
                   <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <p className="mb-0">Card</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <Button onClick={(e) => navigateToCard(e)}>
-                        {cardID}
-                      </Button>
-                    </div>
+                  {/* <div className="row"> */}
+                  <div className="col-sm-9">
+                    Contact Shiwangsh to edit your data
+                    {/* </div> */}
                   </div>
                 </div>
               </div>
@@ -163,4 +107,4 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
   );
 };
 
-export default ViewUser;
+export default CurrentUser;

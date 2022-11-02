@@ -3,14 +3,20 @@ import axios from "axios";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import AuthService from "../services/auth-service";
+
 import logo from "../logo.png";
+import ErrorModal from "../components/ErrorModal";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<any>();
   let navigate = useNavigate();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
+
     await axios
       .post("http://localhost:9090/users/login", {
         email: email,
@@ -18,15 +24,22 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage["name"] = res.data.data.user.name;
-        localStorage["email"] = res.data.data.user.email;
+        localStorage.setItem("user", JSON.stringify(res.data.data.user));
         navigate("/dashboard/home");
       })
-      .catch((err) => console.error(err));
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data.message);
+          setError(error.response.data.message);
+        }
+      });
   };
 
   return (
     <>
+      {error ? (
+        <ErrorModal text={error} closePopup={() => setError(false)} />
+      ) : null}
       <section className="ftco-section">
         <div className="container">
           <div className="row justify-content-center">
@@ -57,11 +70,11 @@ const Login = () => {
                       required
                     />
                   </div>
-                  <div className="form-group d-md-flex">
+                  {/* <div className="form-group d-md-flex">
                     <div className="w-50 text-md-right">
                       <a href="#">Forgot Password</a>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="form-group">
                     <button
                       type="submit"

@@ -1,25 +1,21 @@
-import React from "react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
-
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Home from "./Home";
+import UnauthorizedPage from "./UnauthorizedPage";
 
 const AdminDashboard = () => {
-  const [users, setUsers] = useState([]);
-  const [fetching, setFetching] = useState(true);
-
-  return (
-    <>
-      <Navbar />
-      <section>
-        <Outlet />
-      </section>
-    </>
-  );
+  // const [users, setUsers] = useState([]);
+  // const [fetching, setFetching] = useState(true);
+  if (localStorage.getItem("user")) {
+    return (
+      <>
+        <Navbar />
+        <section>
+          <Outlet />
+        </section>
+      </>
+    );
+  }
+  return <UnauthorizedPage />;
 };
 
 export default AdminDashboard;
