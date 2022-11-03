@@ -3,18 +3,20 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ReactLoading from "react-loading";
 import ViewTicket from "./ViewTicket";
-import ViewPaymnet from "./ViewPaymnet";
+import ViewPayment from "./ViewPayment";
 
 const ViewTransaction = () => {
   const location = useLocation();
+  // console.log(location.state.card);
 
   const [transaction, setTransaction] = useState<any>(
     location.state.transaction
   );
+  const [card, setCard] = useState(location.state.card);
   const [type, setType] = useState<any>();
 
   const [ticket, setTicket] = useState();
-  const [payment, setPaymnet] = useState();
+  const [payment, setPayment] = useState();
 
   const [fetching, setFetching] = useState(true);
 
@@ -30,9 +32,9 @@ const ViewTransaction = () => {
 
     const getPayment = async () => {
       await axios
-        .get(`http://localhost:9090/paymnets/${transaction._id}`)
+        .get(`http://localhost:9090/payments/${transaction._id}`)
         .then((res) => {
-          setPaymnet(res.data.tickets);
+          setPayment(res.data.payments);
           setFetching(false);
         });
     };
@@ -48,10 +50,10 @@ const ViewTransaction = () => {
 
   return type === "ticket" ? (
     <div>
-      <ViewTicket ticket={ticket} />
+      <ViewTicket ticket={ticket} card={location.state.card} />
     </div>
-  ) : type === "paymnet" ? (
-    <ViewPaymnet paymnet={payment} />
+  ) : type === "payment" ? (
+    <ViewPayment payment={payment} card={location.state.card} />
   ) : (
     <>ERROR</>
   );

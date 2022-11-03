@@ -1,10 +1,8 @@
-import axios from "axios";
 import React from "react";
-import { Button, Table } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const ViewTicket = ({ ticket, card }: any) => {
-  console.log(card);
+const ViewPayment = ({ payment, card }: any) => {
+  console.log(payment);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>
       <div className="container">
@@ -28,7 +26,7 @@ const ViewTicket = ({ ticket, card }: any) => {
                 </li>
 
                 <li className="breadcrumb-item active" aria-current="page">
-                  Ticket Details
+                  Payment Details
                 </li>
               </ol>
             </nav>
@@ -36,53 +34,36 @@ const ViewTicket = ({ ticket, card }: any) => {
         </div>
       </div>
       <div className="card-body shadow">
-        <div className="row">
-          <div className="col-sm-3">
-            <p className="mb-0">Card Id</p>
-          </div>
-          <div className="col-sm-9">
-            <p className="text-muted mb-0">{card.uuid}</p>
-          </div>
-        </div>
-        <hr />
-
-        {ticket.map((ticket: any, index: any) => {
+        {payment.map((payment: any, index: any) => {
           return (
             <div key={index}>
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0">Ticket Id</p>
+                  <p className="mb-0">payment Id</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">{ticket._id}</p>
+                  <p className="text-muted mb-0">{payment._id}</p>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0">Amount</p>
-                </div>
-                <div className="col-sm-9">
-                  <p className="text-muted mb-0">{ticket.amount}</p>
-                </div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <p className="mb-0">Route</p>
-                </div>
-                <div className="col-sm-9">
-                  <p className="text-muted mb-0">{ticket["routeName"]}</p>
-                </div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <p className="mb-0">Stops</p>
+                  <p className="mb-0">Previous Amount</p>
                 </div>
                 <div className="col-sm-9">
                   <p className="text-muted mb-0">
-                    {ticket["firstStop"]} - {ticket["lastStop"]}
+                    {payment.previousBalance.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0">Update Balance</p>
+                </div>
+                <div className="col-sm-9">
+                  <p className="text-muted mb-0">
+                    {payment.currentBalance.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -92,7 +73,7 @@ const ViewTicket = ({ ticket, card }: any) => {
                   <p className="mb-0">Created At</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">{ticket["createdAt"]}</p>
+                  <p className="text-muted mb-0">{payment["createdAt"]}</p>
                 </div>
               </div>
             </div>
@@ -103,4 +84,4 @@ const ViewTicket = ({ ticket, card }: any) => {
   );
 };
 
-export default ViewTicket;
+export default ViewPayment;

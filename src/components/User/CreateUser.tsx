@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import ErrorModal from "../ErrorModal";
 import SucessModal from "../SucessModal";
+import authHeader from "../../services/auth-header";
 
 const CreateUser = () => {
   const [fieldValue, setFieldValue] = useState<any>({
@@ -31,7 +32,7 @@ const CreateUser = () => {
 
     const url = `http://localhost:9090/users/`;
     await axios
-      .post(url, fieldValue)
+      .post(url, fieldValue, { headers: authHeader() })
       .then((res) => {
         console.log(res);
 

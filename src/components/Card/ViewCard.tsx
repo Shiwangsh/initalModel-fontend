@@ -5,14 +5,24 @@ import ReactLoading from "react-loading";
 
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBarsProgress,
+  faEye,
+  faMoneyBill1Wave,
+  faMoneyBillTransfer,
+  faTicket,
+  faTrain,
+  faTrainSubway,
+} from "@fortawesome/free-solid-svg-icons";
+import authHeader from "../../services/auth-header";
 
 const ViewCard = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // console.log("location STATE->>>", location.state);
+  console.log("location STATE->>>", location.state);
   const [card, setCard] = useState(location.state.card);
+  const [cardUser, setCardUser] = useState();
   const [transactions, setTransactions] = useState<any>();
   const [fetching, setFetching] = useState(true);
 
@@ -32,6 +42,29 @@ const ViewCard = () => {
   }, [card.uuid, location.state]);
 
   // console.log(transactions);
+
+  const getUserOnClick = async (
+    userID: any,
+    e: React.MouseEvent<HTMLElement>
+  ) => {
+    e.preventDefault();
+    const url = ` http://localhost:9090/users/${userID}`;
+    const res = await axios.get(url, {
+      headers: authHeader(),
+    });
+    const { data } = res;
+    console.log(data);
+    console.log(data.user);
+    setCardUser(data.user);
+    // navigate("../userProfile", { state: { user: data.user } });
+  };
+
+  useEffect(() => {
+    if (cardUser)
+      navigate("../userProfile", {
+        state: { user: cardUser },
+      });
+  }, [navigate, cardUser]);
 
   /**
    * * FOR EDIT-- CURRENTLY VIEW ONLY
@@ -120,62 +153,101 @@ const ViewCard = () => {
             </div>
             <div className="col-sm-9">
               <p className="mb-0">{card.cardType}</p>
-
-              {/* <Form.Select
-                  aria-label="Default select example"
-                  className=" w-25"
-                  name="cardType"
-                  // onChange={handleChange}
-                  disabled
-                  // value={fieldValue.cardType}
-                >
-                  <option value="Standard">Standard</option>
-                  <option value="Student">Student</option>
-                  <option value="Senior">Senior</option>
-                </Form.Select> */}
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <p className="mb-0">User</p>
+            </div>
+            <div className="col-sm-9">
+              <Button
+                variant="outline-info"
+                onClick={(e) => getUserOnClick(card.user, e)}
+              >
+                {card.user}
+              </Button>
             </div>
           </div>
         </div>
-        {/* <button type="submit" className="btn btn-success w-25">
-            Submit
-          </button> */}
       </div>
-      <h3>Transactions</h3>
-      <Table striped borderless hover responsive>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Type</th>
-            {/* <th></th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction: any, index: any) => {
-            return (
-              <tr key={index}>
-                <td>
-                  <small>{transaction["_id"]}</small>
-                </td>
-                <td>{transaction["status"]}</td>
-                <td>{transaction["type"]}</td>
-                <td>{transaction["createdAt"]}</td>
-                <td>
-                  <Button
-                    onClick={() =>
-                      navigate("../viewTransaction", {
-                        state: { transaction: transaction },
-                      })
-                    }
-                  >
-                    <FontAwesomeIcon icon={faEye} />
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <div className="card">
+        <h3>Transactions</h3>
+        <Table striped bordered responsive size="sm">
+          <thead className="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Type</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map((transaction: any, index: any) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <small>{transaction["_id"]}</small>
+                  </td>
+
+                  {transaction["status"] === "Open" ? (
+                    <td>
+                      <span className="badge badge-pill badge-success">
+                        {transaction["status"]}
+                      </span>
+                    </td>
+                  ) : (
+                    <td>
+                      <span className="badge badge-pill badge-danger">
+                        {transaction["status"]}
+                      </span>
+                    </td>
+                  )}
+
+                  {/* <td>{transaction["status"]}</td> */}
+
+                  {transaction["type"] === "Ticket" ? (
+                    <td>
+                      <span className="badge badge-">
+                        <FontAwesomeIcon
+                          icon={faTrainSubway}
+                          className="pl-2"
+                          color="#b33059"
+                        />
+                      </span>
+                    </td>
+                  ) : (
+                    <td>
+                      {/* {transaction["type"]} */}
+                      <FontAwesomeIcon
+                        icon={faMoneyBill1Wave}
+                        className="pl-2"
+                        color="#32a852"
+                      />
+                    </td>
+                  )}
+
+                  {/* <td>{transaction["type"]}</td> */}
+                  <td>{transaction["createdAt"]}</td>
+                  <td>
+                    <Button
+                      variant="none"
+                      onClick={() =>
+                        navigate("../viewTransaction", {
+                          state: { transaction: transaction, card: card },
+                        })
+                      }
+                    >
+                      <FontAwesomeIcon icon={faEye} color="#0b7312" />
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
     </section>
   );
 };

@@ -7,16 +7,16 @@ import "./style.css";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401) {
-      // redirect to 403 page
-      window.location.href = "../401";
-    }
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === 401) {
+//       // redirect to 403 page
+//       window.location.href = "../401";
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

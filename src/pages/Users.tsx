@@ -4,20 +4,35 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import AuthHeader from "../services/auth-header";
-// import { Button } from "react-bootstrap";
 
 import ReactLoading from "react-loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Search from "../components/Search/Search";
+// import Pagination from "react-bootstrap/Pagination";
+import CustomPagination from "../components/Pagination";
 
 const AllUsers = () => {
   const [search, setSearch] = useState(" ");
-  const [user, setUser] = useState(" ");
-
   const [users, setUsers] = useState([]);
-
   const [fetching, setFetching] = useState(true);
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersToShow, setShowUser] = useState([]);
+  useEffect(() => {
+    if (users) setShowUser(users.slice(0, 10));
+  }, [users]);
+
+  const paginate = (page: any) => {
+    setCurrentPage(page);
+    const pageIndex = page - 1;
+    const firstIndex = pageIndex * 10;
+    const lastIndex = pageIndex * 10 + 10;
+    setShowUser(users.slice(firstIndex, lastIndex));
+  };
+  //
+
   useEffect(() => {
     const getUsers = async () => {
       const url = `
@@ -33,7 +48,14 @@ const AllUsers = () => {
     getUsers();
   }, [search]);
 
-  if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
+  if (fetching)
+    return (
+      <ReactLoading
+        type="bubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
 
   return (
     <>
@@ -45,8 +67,8 @@ const AllUsers = () => {
         Add user
       </Link>
       <div className="m-2">
-        <Table striped borderless hover responsive>
-          <thead>
+        <Table striped bordered hover responsive>
+          <thead className="thead-dark">
             <tr>
               <th>id</th>
               <th>Name</th>
@@ -54,10 +76,12 @@ const AllUsers = () => {
               <th>User Type</th>
               <th>Address</th>
               <th>Contact Number</th>
+              <th>Action</th>
             </tr>
           </thead>
+
           <tbody>
-            {users.map((user, index) => {
+            {usersToShow.map((user, index) => {
               return (
                 <tr key={index}>
                   <td>
@@ -73,7 +97,7 @@ const AllUsers = () => {
                       <FontAwesomeIcon
                         icon={faEye}
                         className="pl-1"
-                        color="green"
+                        color="#0b7312"
                       />
                     </Link>
                   </td>
@@ -82,6 +106,11 @@ const AllUsers = () => {
             })}
           </tbody>
         </Table>
+        <CustomPagination
+          dataPerPage={10}
+          totalData={users.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );

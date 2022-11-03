@@ -9,18 +9,32 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import authHeader from "../services/auth-header";
+import CustomPagination from "../components/Pagination";
 
 const AllCards = () => {
   const [cards, setcards] = useState([]);
-
   const [currentCard, setCurrentCard] = useState<any>();
-
   const [user, setUser] = useState();
-
   const [fetching, setFetching] = useState(true);
   // const [openEdit, setOpenEdit] = useState<any>(false);
   const [search, setSearch] = useState(" ");
   const navigate = useNavigate();
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsToShow, setShowCards] = useState([]);
+  useEffect(() => {
+    if (cards) setShowCards(cards.slice(0, 15));
+  }, [cards]);
+
+  const paginate = (page: any) => {
+    setCurrentPage(page);
+    const pageIndex = page - 1;
+    const firstIndex = pageIndex * 15;
+    const lastIndex = pageIndex * 15 + 15;
+    setShowCards(cards.slice(firstIndex, lastIndex));
+  };
 
   // Get Cards
   useEffect(() => {
@@ -58,13 +72,22 @@ const AllCards = () => {
   ) => {
     e.preventDefault();
     const url = ` http://localhost:9090/users/${userID}`;
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: authHeader(),
+    });
     const { data } = res;
     console.log(data.user);
     setUser(data.user);
   };
 
-  if (fetching) return <ReactLoading type="bubbles" color="#000000" />;
+  if (fetching)
+    return (
+      <ReactLoading
+        type="bubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
   return (
     <>
       <Search
@@ -75,19 +98,18 @@ const AllCards = () => {
         {/* <Link to="../loadBalance">Load Balance</Link> */}
       </div>
       <div className="m-2">
-        <Table striped borderless hover responsive>
-          <thead>
+        <Table striped bordered responsive>
+          <thead className="thead-dark">
             <tr>
               <th>UUID</th>
               <th>Balance</th>
               <th>Card Type</th>
-              <th>{""}</th>
-
-              <th>User</th>
+              {/* <th>User</th> */}
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {cards.map((card, index) => {
+            {cardsToShow.map((card, index) => {
               return (
                 <tr key={index}>
                   <td>
@@ -95,18 +117,21 @@ const AllCards = () => {
                   </td>
                   <td>{card["balance"]}</td>
                   <td>{card["cardType"]}</td>
+                  {/* <td>
+                    <Button
+                      variant="outline-dark"
+                      onClick={(e) => getUserOnClick(card["user"], e)}
+                    >
+                      {card["user"]}
+                    </Button>
+                  </td> */}
                   <td>
                     <Button variant="none" onClick={() => setCurrentCard(card)}>
                       <FontAwesomeIcon
                         icon={faEye}
                         className="pl-1"
-                        color="green"
+                        color="#0b7312"
                       />
-                    </Button>
-                  </td>
-                  <td>
-                    <Button onClick={(e) => getUserOnClick(card["user"], e)}>
-                      {card["user"]}
                     </Button>
                   </td>
                 </tr>
@@ -114,12 +139,12 @@ const AllCards = () => {
             })}
           </tbody>
         </Table>
+        <CustomPagination
+          dataPerPage={15}
+          totalData={cards.length}
+          paginate={paginate}
+        />
       </div>
-      {/* 
-      {openEdit ? (
-        // setOpenEdit(true) // wait 2 seconds then execute
-        <EditCard id={currentCard} closePopup={() => setOpenEdit(false)} />
-      ) : null} */}
     </>
   );
 };

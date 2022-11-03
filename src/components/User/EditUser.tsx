@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorModal from "../ErrorModal";
+import AuthHeader from "../../services/auth-header";
 
 const EditUser = ({ user, onActionChange }: any | (() => any)) => {
   let navigate = useNavigate();
@@ -31,7 +32,9 @@ const EditUser = ({ user, onActionChange }: any | (() => any)) => {
     e.preventDefault();
     const url = `http://localhost:9090/users/${defaultUser.id}`;
     await axios
-      .patch(url, fieldValue)
+      .patch(url, fieldValue, {
+        headers: AuthHeader(),
+      })
       .then((res) => {
         console.log(res.data.user);
 

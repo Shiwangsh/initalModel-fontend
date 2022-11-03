@@ -7,9 +7,6 @@ import ViewUser from "../components/User/ViewUser";
 
 const UserProfile = () => {
   const location = useLocation();
-  // console.log("location STATE->>>", location.state);
-
-  // console.log("locationstateuser->>>", location.state.user);
   const [user, setUser] = useState(location.state.user);
   const [action, setAction] = useState("view");
 

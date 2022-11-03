@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { Table } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 export default function ViewRoute() {
   // useEffect(() => {
@@ -76,7 +77,14 @@ export default function ViewRoute() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCgQwreil00NWmBry9d-ChiSiyk2tROwWU",
   });
-  if (!isLoaded) return <h1>Loading</h1>;
+  if (!isLoaded)
+    return (
+      <ReactLoading
+        type="bubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
   return (
     <div className="m-2">
       <GoogleMap
@@ -149,8 +157,8 @@ export default function ViewRoute() {
 
         <h4>Stops details</h4>
         <hr style={{ backgroundColor: "#000" }} />
-        <Table striped borderless hover responsive>
-          <thead>
+        <Table bordered responsive size="sm">
+          <thead className="thead-light">
             <tr>
               <th>Stop Number</th>
               <th>Distance till next Stop</th>
