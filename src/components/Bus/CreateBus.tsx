@@ -33,7 +33,7 @@ const CreateBus = () => {
         console.log(res);
 
         setSuccess(true);
-        setTimeout(() => navigate(0), 1000);
+        // setTimeout(() => navigate(0), 1000);
       })
       .catch((error) => {
         // console.log(error.response.data.message);
@@ -66,7 +66,7 @@ const CreateBus = () => {
                     <Link to="../../dashboard">Home</Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../Buss">Buss</Link>
+                    <Link to="../Buses">Buses</Link>
                   </li>
 
                   <li className="breadcrumb-item active" aria-current="page">

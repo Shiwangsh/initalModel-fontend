@@ -155,7 +155,6 @@ const EditUser = ({ user, onActionChange }: any | (() => any)) => {
                 >
                   <option value="User">User</option>
                   <option value="Admin">Admin</option>
-                  {/* <option value="Senior Citizen">Senior Citizen</option> */}
                 </Form.Select>
               </div>
             </div>

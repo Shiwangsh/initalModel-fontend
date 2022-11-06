@@ -2,27 +2,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
-import Cards from "./pages/Cards";
-import Buses from "./pages/Buses";
-import BusRoutes from "./pages/Routes";
-import LoadBalance from "./pages/LoadBalance";
-
+import Cards from "./pages/Card/Cards";
+import Buses from "./pages/Bus/Buses";
+import BusRoutes from "./pages/Route/Routes";
+import LoadBalance from "./pages/Card/LoadBalance";
 import ViewRoute from "./components/Route/ViewRoute";
-
-import UserProfile from "./pages/UserProfile";
-
-import AllUsers from "./pages/Users";
-
-import EditCard from "./components/Card/ViewCard";
-import Tickets from "./pages/Tickets";
+import UserProfile from "./pages/User/UserProfile";
+import AllUsers from "./pages/User/Users";
 import CreateUser from "./components/User/CreateUser";
 import CreateBus from "./components/Bus/CreateBus";
 import CreateRoute from "./components/Route/CreateRoute";
 import Home from "./pages/Home";
-import UnauthorizedPage from "./pages/UnauthorizedPage";
-import Notfound from "./pages/NotFound";
+import UnauthorizedPage from "./pages/UnAuthPage/UnauthorizedPage";
+import Notfound from "./pages/UnAuthPage/NotFound";
 import CurrentUser from "./pages/CurrentUser";
-import Transactions from "./pages/Transactions";
+import Transactions from "./pages/Transaction/Transactions";
 import ViewTransaction from "./components/Transaction/ViewTransaction";
 import ViewCard from "./components/Card/ViewCard";
 

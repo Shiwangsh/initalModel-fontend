@@ -15,6 +15,7 @@ import {
   faTrainSubway,
 } from "@fortawesome/free-solid-svg-icons";
 import authHeader from "../../services/auth-header";
+import ErrorModal from "../ErrorModal";
 
 const ViewCard = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const ViewCard = () => {
   const [cardUser, setCardUser] = useState();
   const [transactions, setTransactions] = useState<any>();
   const [fetching, setFetching] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -53,10 +55,10 @@ const ViewCard = () => {
       headers: authHeader(),
     });
     const { data } = res;
-    console.log(data);
+    // console.log(data);
     console.log(data.user);
     setCardUser(data.user);
-    // navigate("../userProfile", { state: { user: data.user } });
+    if (!data.user) setError(true);
   };
 
   useEffect(() => {
@@ -64,43 +66,18 @@ const ViewCard = () => {
       navigate("../userProfile", {
         state: { user: cardUser },
       });
-  }, [navigate, cardUser]);
-
-  /**
-   * * FOR EDIT-- CURRENTLY VIEW ONLY
-   *
-   */
-
-  // const defaultCard = {
-  //   uuid: card.uuid,
-  //   balance: card.balance,
-  //   cardType: card.type,
-  // };
-  // const [fieldValue, setFieldValue] = useState(defaultCard);
-
-  // const handleChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setFieldValue({
-  //     ...fieldValue,
-  //     [name]: value,
-  //   });
-  // };
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefult();
-  //   const url = `http://localhost:9090/cards/loadbalance`;
-  //   await axios.patch(url).then((res) => {
-  //     console.log(res.data.user);
-
-  //     navigate(0);
-  //     navigate("../cards", { state: { card: res.data.card } });
-  //   });
-  // };
-  //   const [error, setError] = useState<any>();
+  }, [navigate, cardUser, error]);
 
   if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
+      {error ? (
+        <ErrorModal
+          text="User for the card was deleted"
+          closePopup={() => setError(false)}
+        />
+      ) : null}
       <div className="container">
         <div className="row">
           <div className="col">
@@ -253,3 +230,34 @@ const ViewCard = () => {
 };
 
 export default ViewCard;
+
+/**
+ * * FOR EDIT-- CURRENTLY VIEW ONLY
+ *
+ */
+
+// const defaultCard = {
+//   uuid: card.uuid,
+//   balance: card.balance,
+//   cardType: card.type,
+// };
+// const [fieldValue, setFieldValue] = useState(defaultCard);
+
+// const handleChange = (e: any) => {
+//   const { name, value } = e.target;
+//   setFieldValue({
+//     ...fieldValue,
+//     [name]: value,
+//   });
+// };
+// const handleSubmit = async (e: any) => {
+//   e.preventDefult();
+//   const url = `http://localhost:9090/cards/loadbalance`;
+//   await axios.patch(url).then((res) => {
+//     console.log(res.data.user);
+
+//     navigate(0);
+//     navigate("../cards", { state: { card: res.data.card } });
+//   });
+// };
+//   const [error, setError] = useState<any>();

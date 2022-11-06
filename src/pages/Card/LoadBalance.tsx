@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import EditBalance from "../components/Card/EditBalance";
-import ErrorModal from "../components/ErrorModal";
+import EditBalance from "../../components/Card/EditBalance";
+import ErrorModal from "../../components/ErrorModal";
 
 const LoadBalance = () => {
   const [cardID, setCardID] = useState<any>();

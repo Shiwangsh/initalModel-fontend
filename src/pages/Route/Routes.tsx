@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import Search from "../components/Search/Search";
+import Search from "../../components/Search/Search";
 
 import ReactLoading from "react-loading";
 import { Link, useNavigate } from "react-router-dom";
@@ -56,8 +56,8 @@ const AllRoute = () => {
       />
       <Link to="../createRoute">Add Route</Link>
       <div className="m-2">
-        <Table striped borderless hover responsive>
-          <thead>
+        <Table striped bordered hover responsive className="w-75 mx-auto">
+          <thead className="thead-dark text-center">
             <tr>
               <th>Routes</th>
             </tr>
@@ -65,11 +65,14 @@ const AllRoute = () => {
           <tbody>
             {routes.map((obj, index) => {
               return (
-                <tr key={index}>
+                <tr key={index} className="text-center">
                   <td>
                     {obj["routeName"]}
                     <br />
-                    <Button onClick={(e) => getRouteOnClick(obj["_id"], e)}>
+                    <Button
+                      variant="outline-info"
+                      onClick={(e) => getRouteOnClick(obj["_id"], e)}
+                    >
                       View Route details
                     </Button>
                   </td>

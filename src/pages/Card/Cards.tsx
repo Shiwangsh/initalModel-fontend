@@ -2,15 +2,15 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import Search from "../components/Search/Search";
+import Search from "../../components/Search/Search";
 
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import authHeader from "../services/auth-header";
-import CustomPagination from "../components/Pagination";
+import authHeader from "../../services/auth-header";
+import CustomPagination from "../../components/Pagination";
 
 const AllCards = () => {
   const [cards, setcards] = useState([]);

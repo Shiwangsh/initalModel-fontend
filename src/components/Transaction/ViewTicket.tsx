@@ -4,6 +4,7 @@ import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 const ViewTicket = ({ ticket, card }: any) => {
+  const navigate = useNavigate();
   console.log(card);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>
@@ -41,7 +42,18 @@ const ViewTicket = ({ ticket, card }: any) => {
             <p className="mb-0">Card Id</p>
           </div>
           <div className="col-sm-9">
-            <p className="text-muted mb-0">{card.uuid}</p>
+            <Button
+              variant="outline-info"
+              onClick={(e) =>
+                navigate("../viewCard", {
+                  state: {
+                    card: card,
+                  },
+                })
+              }
+            >
+              {card.uuid}
+            </Button>
           </div>
         </div>
         <hr />

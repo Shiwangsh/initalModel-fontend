@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
-import UnauthorizedPage from "./UnauthorizedPage";
+import UnauthorizedPage from "./UnAuthPage/UnauthorizedPage";
 
 const AdminDashboard = () => {
-  // const [users, setUsers] = useState([]);
-  // const [fetching, setFetching] = useState(true);
   if (localStorage.getItem("user")) {
     return (
       <>

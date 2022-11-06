@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Search from "../components/Search/Search";
+import Search from "../../components/Search/Search";
 import ReactLoading from "react-loading";
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import CustomPagination from "../components/Pagination";
+import CustomPagination from "../../components/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle,
   faEye,
+  faMoneyBill1Wave,
   faMoneyBillTransfer,
   faSignal,
+  faTrainSubway,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Transactions = () => {
@@ -43,6 +45,7 @@ const Transactions = () => {
 
   const getCardOnClick = async (
     cardID: any,
+    transaction: any,
     e: React.MouseEvent<HTMLElement>
   ) => {
     e.preventDefault();
@@ -50,7 +53,13 @@ const Transactions = () => {
     const res = await axios.get(url);
     const { data } = res;
     setCard(data.card);
-    navigate("../viewCard", { state: { card: data.card } });
+    navigate("../viewTransaction", {
+      state: {
+        transaction: transaction,
+        card: data.card,
+      },
+    });
+    // navigate("../viewCard", { state: { card: data.card } });
   };
 
   // Paginaton handel
@@ -77,7 +86,6 @@ const Transactions = () => {
               <th>ID</th>
               <th>Status</th>
               <th>Type</th>
-              <th>Card</th>
               <th>Action</th>
               {/* <th>Date and Time</th> */}
             </tr>
@@ -91,42 +99,53 @@ const Transactions = () => {
                   </td>
                   {transaction["status"] === "Open" ? (
                     <td>
-                      <FontAwesomeIcon
-                        icon={faMoneyBillTransfer}
-                        color="green"
-                      />
+                      <span className="badge badge-pill badge-success">
+                        {transaction["status"]}
+                      </span>
                     </td>
                   ) : (
                     <td>
-                      {
-                        <FontAwesomeIcon
-                          icon={faMoneyBillTransfer}
-                          color="red"
-                        />
-                      }
+                      <span className="badge badge-pill badge-danger">
+                        {transaction["status"]}
+                      </span>
                     </td>
                   )}
-                  <td>{transaction["type"]}</td>
-                  <td>
-                    <Button
-                      variant="outline-dark"
-                      onClick={(e) => getCardOnClick(transaction["card"], e)}
-                    >
-                      {transaction["card"]}
-                    </Button>
-                  </td>
-
+                  {transaction["type"] === "Ticket" ? (
+                    <td>
+                      <span className="badge badge-">
+                        <FontAwesomeIcon
+                          icon={faTrainSubway}
+                          className="pl-2"
+                          color="#b33059"
+                          size="lg"
+                        />
+                      </span>
+                    </td>
+                  ) : (
+                    <td>
+                      {/* {transaction["type"]} */}
+                      <FontAwesomeIcon
+                        icon={faMoneyBill1Wave}
+                        className="pl-2"
+                        color="#32a852"
+                        size="lg"
+                      />
+                    </td>
+                  )}
                   <td>
                     <Button
                       variant="none"
                       onClick={(e) =>
-                        navigate("../viewTransaction", {
-                          state: {
-                            transaction: transaction,
-                            card: { uuid: "BUG FIX LATER" },
-                          },
-                        })
+                        getCardOnClick(transaction["card"], transaction, e)
                       }
+                      // onClick={(e) =>
+                      //   navigate("../viewTransaction", {
+                      //     state: {
+                      //       transaction: transaction,
+                      //       card: { uuid: transaction["card"] },
+                      //     },
+                      //   })
+                      // }
                     >
                       <FontAwesomeIcon icon={faEye} color="#0b7312" />
                     </Button>

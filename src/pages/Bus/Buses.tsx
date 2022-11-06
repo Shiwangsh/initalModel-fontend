@@ -5,15 +5,22 @@ import Table from "react-bootstrap/Table";
 import ReactLoading from "react-loading";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Search from "../components/Search/Search";
+import Search from "../../components/Search/Search";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditBus from "../../components/Bus/EditBus";
 
 const AllCards = () => {
   const [buses, setBuses] = useState([]);
   const [route, setRoute] = useState();
   const [search, setSearch] = useState<any>(" ");
+  const [open, setOpen] = useState<any>(false);
 
   const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
+
+  // const [edit, setEdit] = useState(false);
+  const [bus, setBus] = useState();
 
   useEffect(() => {
     const getBuses = async () => {
@@ -46,9 +53,16 @@ const AllCards = () => {
     setRoute(data.route);
   };
 
+  const editBus = (bus: any, e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setBus(bus);
+    setOpen(true);
+  };
+
   if (fetching) return <ReactLoading type="balls" color="#000000" />;
   return (
     <>
+      {open ? <EditBus bus={bus} closePopup={() => setOpen(false)} /> : null}
       <Search
         setSearch={(search: any) => setSearch(search)}
         placeHolder="Enter regNum to search"
@@ -57,17 +71,18 @@ const AllCards = () => {
         Add Bus
       </Link>
 
-      <Table striped borderless hover responsive>
-        <thead>
+      <Table striped bordered hover responsive>
+        {buses.length === 0 ? <p className="text-muted">No buses</p> : null}
+        <thead className="thead-dark">
           <tr>
             <th>ID</th>
             <th>Registration Number</th>
             <th>Capacity</th>
             <th>Route</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {/* {JSON.stringify(users)} */}
           {buses.map((bus, index) => {
             return (
               <tr key={index}>
@@ -75,8 +90,16 @@ const AllCards = () => {
                 <td>{bus["regNum"]}</td>
                 <td>{bus["capacity"]}</td>
                 <td>
-                  <Button onClick={(e) => getRouteOnClick(bus["route"], e)}>
+                  <Button
+                    variant="outline-dark"
+                    onClick={(e) => getRouteOnClick(bus["route"], e)}
+                  >
                     {bus["route"]}
+                  </Button>
+                </td>
+                <td>
+                  <Button variant="none" onClick={(e) => editBus(bus, e)}>
+                    <FontAwesomeIcon icon={faEdit} color="#0b7312" />
                   </Button>
                 </td>
               </tr>
@@ -85,12 +108,6 @@ const AllCards = () => {
         </tbody>
       </Table>
     </>
-    // <>
-    //   <div> {JSON.stringify(cards)}</div>
-    //   {cards.map((bus) => {
-    //     return <h3>{bus["name"]}</h3>;
-    //   })}
-    // </>
   );
 };
 

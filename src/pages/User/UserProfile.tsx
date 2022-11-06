@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 
 import { useLocation } from "react-router-dom";
-import EditUser from "../components/User/EditUser";
-import ViewUser from "../components/User/ViewUser";
+import EditUser from "../../components/User/EditUser";
+import ViewUser from "../../components/User/ViewUser";
 
 const UserProfile = () => {
   const location = useLocation();

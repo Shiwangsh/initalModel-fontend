@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 const ViewPayment = ({ payment, card }: any) => {
+  const navigate = useNavigate();
   console.log(payment);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>
@@ -34,6 +36,27 @@ const ViewPayment = ({ payment, card }: any) => {
         </div>
       </div>
       <div className="card-body shadow">
+        <div className="row">
+          <div className="col-sm-3">
+            <p className="mb-0">Card Id</p>
+          </div>
+          <div className="col-sm-9">
+            <Button
+              variant="outline-info"
+              onClick={(e) =>
+                navigate("../viewCard", {
+                  state: {
+                    card: card,
+                  },
+                })
+              }
+            >
+              {card.uuid}
+            </Button>
+          </div>
+        </div>
+        <hr />
+
         {payment.map((payment: any, index: any) => {
           return (
             <div key={index}>
@@ -48,26 +71,36 @@ const ViewPayment = ({ payment, card }: any) => {
               <hr />
               <div className="row">
                 <div className="col-sm-3">
+                  <p className="mb-0">Amount</p>
+                </div>
+                <div className="col-sm-9">
+                  <p className="text-muted mb-0">{payment.amount.toFixed(2)}</p>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
                   <p className="mb-0">Previous Amount</p>
                 </div>
                 <div className="col-sm-9">
                   <p className="text-muted mb-0">
-                    {payment.previousBalance.toFixed(2)}
+                    {payment.balanceBefore.toFixed(2)}
                   </p>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0">Update Balance</p>
+                  <p className="mb-0">Balance updated to</p>
                 </div>
                 <div className="col-sm-9">
                   <p className="text-muted mb-0">
-                    {payment.currentBalance.toFixed(2)}
+                    {payment.balanceAfter.toFixed(2)}
                   </p>
                 </div>
               </div>
               <hr />
+
               <div className="row">
                 <div className="col-sm-3">
                   <p className="mb-0">Created At</p>

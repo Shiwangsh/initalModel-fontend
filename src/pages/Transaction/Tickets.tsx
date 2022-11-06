@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Search from "../components/Search/Search";
+import Search from "../../components/Search/Search";
 import ReactLoading from "react-loading";
 import { Button, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

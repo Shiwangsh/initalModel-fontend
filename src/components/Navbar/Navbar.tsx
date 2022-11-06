@@ -13,6 +13,7 @@ import {
   faRoute,
   faTicket,
   faMoneyBills,
+  faRobot,
 } from "@fortawesome/free-solid-svg-icons";
 import LoginDropDown from "../Login/LoginDropDown";
 
@@ -51,7 +52,12 @@ function Navibar() {
                 <FontAwesomeIcon icon={faMoneyBills} className="pr-1" />
                 Load Balance
               </Nav.Link>
+              <Nav.Link as={Link} to={"loadBalance"}>
+                <FontAwesomeIcon icon={faRobot} className="pr-1" />
+                Simulate Tap
+              </Nav.Link>
             </Nav>
+
             <LoginDropDown />
           </Navbar.Collapse>
         </Container>
