@@ -3,7 +3,7 @@ import authHeader from "./auth-header";
 
 export default async function filterResults(url: any, filterQuery: any) {
   const query = filterQuery.replace(/['"]+/g, "");
-  //   console.log(filterQuery);
+  console.log(filterQuery);
 
   const res = await axios.get(
     `

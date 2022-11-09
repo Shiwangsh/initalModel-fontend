@@ -7,7 +7,6 @@ import ViewPayment from "./ViewPayment";
 
 const ViewTransaction = () => {
   const location = useLocation();
-  // console.log(location.state.card);
 
   const [transaction, setTransaction] = useState<any>(
     location.state.transaction

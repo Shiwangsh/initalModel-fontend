@@ -9,6 +9,7 @@ import Search from "../../components/Search/Search";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditBus from "../../components/Bus/EditBus";
+import CustomPagination from "../../components/Pagination";
 
 const AllCards = () => {
   const [buses, setBuses] = useState([]);
@@ -21,6 +22,20 @@ const AllCards = () => {
 
   // const [edit, setEdit] = useState(false);
   const [bus, setBus] = useState();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showData, setShowData] = useState([]);
+  useEffect(() => {
+    if (buses) setShowData(buses.slice(0, 10));
+  }, [buses]);
+  // Paginaton handel
+  const handleClick = (page: any) => {
+    setCurrentPage(page);
+    const pageIndex = page - 1;
+    const firstIndex = pageIndex * 10;
+    const lastIndex = pageIndex * 10 + 10;
+    setShowData(buses.slice(firstIndex, lastIndex));
+  };
 
   useEffect(() => {
     const getBuses = async () => {
@@ -72,7 +87,7 @@ const AllCards = () => {
       </Link>
 
       <Table striped bordered hover responsive>
-        {buses.length === 0 ? <p className="text-muted">No buses</p> : null}
+        {/* {showData.length === 0 ? <p className="text-muted">No buses</p> : null} */}
         <thead className="thead-dark">
           <tr>
             <th>ID</th>
@@ -107,6 +122,11 @@ const AllCards = () => {
           })}
         </tbody>
       </Table>
+      <CustomPagination
+        dataPerPage={10}
+        totalData={buses.length}
+        paginate={handleClick}
+      />
     </>
   );
 };

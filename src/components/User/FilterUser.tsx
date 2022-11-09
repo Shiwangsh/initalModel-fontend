@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-const FilterUser = ({ setFilterQuery }: any) => {
+const FilterUser = ({ setFilterQuery, userModal }: any) => {
   const [fieldValue, setFieldValue] = useState<any>();
 
   const handleChange = (e: any) => {
@@ -25,15 +25,28 @@ const FilterUser = ({ setFilterQuery }: any) => {
           </Form.Group>
 
           <Form.Group as={Col}>
-            <Form.Select
-              name="userType"
-              onChange={handleChange}
-              aria-label="Default select example"
-            >
-              <option>User Type</option>
-              <option value="User">User</option>
-              <option value="Admin">Admin</option>
-            </Form.Select>
+            {userModal === "user" ? (
+              <Form.Select
+                name="userType"
+                onChange={handleChange}
+                aria-label="Default select example"
+              >
+                <option>User Type</option>
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+              </Form.Select>
+            ) : (
+              <Form.Select
+                name="staffType"
+                onChange={handleChange}
+                aria-label="Default select example"
+              >
+                <option>Staff Type</option>
+                <option value="Admin">Admin</option>
+                <option value="Level1">Level1</option>
+                <option value="Level2">Level2</option>
+              </Form.Select>
+            )}
           </Form.Group>
         </Row>
         <Button

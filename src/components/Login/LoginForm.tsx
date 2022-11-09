@@ -34,7 +34,7 @@ const LoginForm = () => {
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="btn btn-primary rounded submit p-3 px-5"
+                    className="btn-info rounded submit p-3 px-5"
                   >
                     Login
                   </button>

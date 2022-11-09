@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../ErrorModal";
@@ -15,7 +15,6 @@ const EditBalance = ({ card }: any) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(card);
-
     const url = `http://localhost:9090/cards/loadBalance`;
     await axios
       .post(url, {

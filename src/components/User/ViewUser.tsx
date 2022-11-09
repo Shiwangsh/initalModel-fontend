@@ -26,7 +26,7 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
       const res = await axios.get(url, {
         headers: AuthHeader(),
       });
-      console.log(res.data.card);
+      // console.log(res.data.card);
       setCard(res.data.card);
       // console.log(card);
 
@@ -98,6 +98,15 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
               </div>
               <div className="card mb-4 shadow">
                 <div className="card-body">
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <p className="mb-0">User Id</p>
+                    </div>
+                    <div className="col-sm-9">
+                      <p className="text-muted mb-0 small">{user._id}</p>
+                    </div>
+                  </div>
+                  <hr />
                   <div className="row">
                     <div className="col-sm-3">
                       <p className="mb-0">Full Name</p>

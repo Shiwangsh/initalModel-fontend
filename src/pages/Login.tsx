@@ -3,9 +3,6 @@ import axios from "axios";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import AuthService from "../services/auth-service";
-
 import logo from "../logo.png";
 import ErrorModal from "../components/ErrorModal";
 const Login = () => {
@@ -18,7 +15,7 @@ const Login = () => {
     event.preventDefault();
 
     await axios
-      .post("http://localhost:9090/users/login", {
+      .post("http://localhost:9090/login", {
         email: email,
         password: password,
       })
@@ -45,7 +42,9 @@ const Login = () => {
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
-                <h3 className="text-center">E-Ticketing</h3>
+                <h3 className="text-center text-info">
+                  Smart Ticketing System
+                </h3>
                 <img
                   src={logo}
                   alt="avatar"
@@ -70,15 +69,10 @@ const Login = () => {
                       required
                     />
                   </div>
-                  {/* <div className="form-group d-md-flex">
-                    <div className="w-50 text-md-right">
-                      <a href="#">Forgot Password</a>
-                    </div>
-                  </div> */}
                   <div className="form-group">
                     <button
                       type="submit"
-                      className="btn btn-primary rounded submit p-3 px-5"
+                      className="btn btn-info rounded submit p-3 px-5"
                       onClick={handleSubmit}
                     >
                       Login

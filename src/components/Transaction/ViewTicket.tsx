@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ViewTicket = ({ ticket, card }: any) => {
   const navigate = useNavigate();
+  console.log(ticket);
   console.log(card);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>

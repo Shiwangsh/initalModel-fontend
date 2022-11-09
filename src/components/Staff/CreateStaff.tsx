@@ -9,11 +9,8 @@ import SucessModal from "../SucessModal";
 import authHeader from "../../services/auth-header";
 import { Button } from "react-bootstrap";
 
-const CreateUser = () => {
-  const [fieldValue, setFieldValue] = useState<any>({
-    userType: "User",
-    cardType: "Standard",
-  });
+const CreateStaff = () => {
+  const [fieldValue, setFieldValue] = useState<any>();
   const [error, setError] = useState<any>();
   const [success, setSuccess] = useState<any>(false);
 
@@ -31,7 +28,7 @@ const CreateUser = () => {
     e.preventDefault();
     console.log(fieldValue);
 
-    const url = `http://localhost:9090/users/`;
+    const url = `http://localhost:9090/staffs/`;
     await axios
       .post(url, fieldValue, { headers: authHeader() })
       .then((res) => {
@@ -73,16 +70,16 @@ const CreateUser = () => {
                     </Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../users" style={{ color: "#23abc0" }}>
-                      Users
+                    <Link to="../staffs" style={{ color: "#23abc0" }}>
+                      Staffs
                     </Link>
                   </li>
 
                   <li
-                    className="breadcrumb-item font-weight-bold"
+                    className="breadcrumb-item active font-weight-bold"
                     aria-current="page"
                   >
-                    Create User
+                    Create Staff
                   </li>
                 </ol>
               </nav>
@@ -166,13 +163,13 @@ const CreateUser = () => {
             <hr />
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">User Type</p>
+                <p className="mb-0">Role</p>
               </div>
               <div className="col-sm-9">
                 <Form.Select
                   aria-label="Default select example"
                   className=" w-25"
-                  name="userType"
+                  name="staffType"
                   onChange={handleChange}
                   defaultValue="User"
 
@@ -181,27 +178,9 @@ const CreateUser = () => {
                   {/* <option value="none" selected disabled hidden>
                     Select an Option
                   </option> */}
-                  <option value="User">User</option>
                   <option value="Admin">Admin</option>
-                </Form.Select>
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="col-sm-3">
-                <p className="mb-0">Card Type</p>
-              </div>
-              <div className="col-sm-9">
-                <Form.Select
-                  aria-label="Default select example"
-                  className=" w-25"
-                  name="cardType"
-                  defaultValue="Standard"
-                  onChange={handleChange}
-                >
-                  <option value="Student">Student</option>
-                  <option value="Senior">Senior</option>
-                  <option value="Standard">Standard</option>
+                  <option value="Level1">Level1</option>
+                  <option value="Level2">Level2</option>
                 </Form.Select>
               </div>
             </div>
@@ -218,4 +197,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default CreateStaff;

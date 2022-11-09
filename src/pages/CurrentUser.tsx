@@ -84,16 +84,16 @@ const CurrentUser = () => {
                   <hr />
                   <div className="row">
                     <div className="col-sm-3">
-                      <p className="mb-0">User Type</p>
+                      <p className="mb-0">Role</p>
                     </div>
                     <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.userType}</p>
+                      <p className="text-muted mb-0">{user.staffType}</p>
                     </div>
                   </div>
 
                   <hr />
                   {/* <div className="row"> */}
-                  <div className="col-sm-9">
+                  <div className="col-sm-9 text-danger">
                     Contact Shiwangsh to edit your data
                     {/* </div> */}
                   </div>

@@ -63,13 +63,20 @@ const CreateBus = () => {
               >
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
-                    <Link to="../../dashboard">Home</Link>
+                    <Link to="../../dashboard" style={{ color: "#23abc0" }}>
+                      Home
+                    </Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../Buses">Buses</Link>
+                    <Link to="../Buses" style={{ color: "#23abc0" }}>
+                      Buses
+                    </Link>
                   </li>
 
-                  <li className="breadcrumb-item active" aria-current="page">
+                  <li
+                    className="breadcrumb-item active font-weight-bold"
+                    aria-current="page"
+                  >
                     Create Bus
                   </li>
                 </ol>

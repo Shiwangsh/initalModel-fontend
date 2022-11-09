@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import authHeader from "../../services/auth-header";
 import ErrorModal from "../ErrorModal";
+import loadData from "../../services/load-data";
 
 const ViewCard = () => {
   const location = useLocation();

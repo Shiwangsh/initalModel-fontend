@@ -1,11 +1,10 @@
 import React from "react";
-
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+// import "./style.css";
 import {
   faUsers,
   faCreditCard,
@@ -52,7 +51,7 @@ function Navibar() {
                 <FontAwesomeIcon icon={faMoneyBills} className="pr-1" />
                 Load Balance
               </Nav.Link>
-              <Nav.Link as={Link} to={"loadBalance"}>
+              <Nav.Link as={Link} to={"simulateTap"}>
                 <FontAwesomeIcon icon={faRobot} className="pr-1" />
                 Simulate Tap
               </Nav.Link>

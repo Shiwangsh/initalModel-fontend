@@ -2,6 +2,7 @@ import { faBus, faRoute, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import BarChart from "../components/Charts/BarChart";
 import LineChart from "../components/Charts/LineChart";
 import PieChart from "../components/Charts/PieChart";
@@ -44,41 +45,44 @@ const Home = () => {
 
   return (
     <>
-      <div className="container-fluid px-4 mt-4">
+      <div className="container-fluid px-4 mt-4 bg-white">
         <div className="row">
           <div className="col-xl-3 col-md-6">
             <div className="card bg-primary text-white mb-4">
-              {/* <div className="card-body">Total Users</div> */}
-              <div className="card-footer d-flex align-items-center justify-content-between">
-                <p className="text-white">
-                  <FontAwesomeIcon icon={faUsers} className="pr-2" />
-                  Total Number of Users: {users}
-                </p>
-              </div>
+              <Link to={"../users"}>
+                <div className="card-footer d-flex align-items-center justify-content-between">
+                  <p className="text-white">
+                    <FontAwesomeIcon icon={faUsers} className="pr-2" />
+                    Total Number of Users: {users}
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
 
           <div className="col-xl-3 col-md-6">
             <div className="card bg-success text-white mb-4">
-              {/* <div className="card-body">Total Buses</div> */}
-              <div className="card-footer d-flex align-items-center justify-content-between">
-                <p className="text-white">
-                  <FontAwesomeIcon icon={faBus} className="pr-2" />
-                  Total Number of Buses: {buses}
-                </p>
-              </div>
+              <Link to={"../buses"}>
+                <div className="card-footer d-flex align-items-center justify-content-between">
+                  <p className="text-white">
+                    <FontAwesomeIcon icon={faBus} className="pr-2" />
+                    Total Number of Buses: {buses}
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
 
           <div className="col-xl-3 col-md-6">
             <div className="card bg-warning text-white mb-4">
-              {/* <div className="card-body">Total Routes</div> */}
-              <div className="card-footer d-flex align-items-center justify-content-between">
-                <p className="text-white">
-                  <FontAwesomeIcon icon={faRoute} className="pr-2" />
-                  Total Number of Routes: {routes}
-                </p>
-              </div>
+              <Link to={"../routes"}>
+                <div className="card-footer d-flex align-items-center justify-content-between">
+                  <p className="text-white">
+                    <FontAwesomeIcon icon={faRoute} className="pr-2" />
+                    Total Number of Routes: {routes}
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,16 +1,27 @@
+import Sidiebar from "../components/Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
+// import Navbar from "../components/Navbar/Navbar";
 import UnauthorizedPage from "./UnAuthPage/UnauthorizedPage";
+import LoginDropDown from "../components/Login/LoginDropDown";
 
 const AdminDashboard = () => {
   if (localStorage.getItem("user")) {
     return (
-      <>
-        <Navbar />
-        <section>
+      <div
+        style={{
+          display: "flex",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        {/* <Navbar /> */}
+        <Sidiebar />
+        <div style={{ width: "100%" }}>
+          <div className="float-right m-3">
+            <LoginDropDown />
+          </div>
           <Outlet />
-        </section>
-      </>
+        </div>
+      </div>
     );
   }
   return <UnauthorizedPage />;

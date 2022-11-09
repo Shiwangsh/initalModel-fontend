@@ -11,13 +11,13 @@ const LoginDropDown = () => {
     const user = JSON.parse(localStorage.getItem("user") || " ");
     return (
       <Dropdown>
-        <Dropdown.Toggle variant="dark" id="dropdown-basic">
+        <Dropdown.Toggle variant="info" id="dropdown-basic">
           <FontAwesomeIcon icon={faUser} className="pr-1" />
           {/* {user.name} */}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-          <Dropdown.Item disabled>{user.email}</Dropdown.Item>
+        <Dropdown.Menu variant="info">
+          <Dropdown.Item disabled>{user.email} </Dropdown.Item>
 
           <Dropdown.Item href="currentUser">View Profile</Dropdown.Item>
 

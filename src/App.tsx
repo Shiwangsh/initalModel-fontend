@@ -9,6 +9,8 @@ import LoadBalance from "./pages/Card/LoadBalance";
 import ViewRoute from "./components/Route/ViewRoute";
 import UserProfile from "./pages/User/UserProfile";
 import AllUsers from "./pages/User/Users";
+import Staffs from "./pages/Staff/Staffs";
+
 import CreateUser from "./components/User/CreateUser";
 import CreateBus from "./components/Bus/CreateBus";
 import CreateRoute from "./components/Route/CreateRoute";
@@ -19,6 +21,9 @@ import CurrentUser from "./pages/CurrentUser";
 import Transactions from "./pages/Transaction/Transactions";
 import ViewTransaction from "./components/Transaction/ViewTransaction";
 import ViewCard from "./components/Card/ViewCard";
+import SimulateTap from "./pages/SimulateTap/SimulateTap";
+import Sidebar from "./components/Sidebar/Sidebar";
+import CreateStaff from "./components/Staff/CreateStaff";
 
 function App() {
   return (
@@ -32,6 +37,9 @@ function App() {
           <Route path="cards" element={<Cards />} />
           <Route path="buses" element={<Buses />} />
           <Route path="users" element={<AllUsers />} />
+          <Route path="staffs" element={<Staffs />} />
+          <Route path="createStaff" element={<CreateStaff />} />
+
           <Route path="routes" element={<BusRoutes />} />
           <Route path="viewCard" element={<ViewCard />} />
           <Route path="viewRoute" element={<ViewRoute />} />
@@ -42,6 +50,8 @@ function App() {
           <Route path="createRoute" element={<CreateRoute />} />
           <Route path="currentUser" element={<CurrentUser />} />
           <Route path="viewTransaction" element={<ViewTransaction />} />
+          <Route path="simulateTap" element={<SimulateTap />} />
+          <Route path="sidebar" element={<Sidebar />} />
         </Route>
         <Route path="401" element={<UnauthorizedPage />} />
         <Route path="*" element={<Notfound />} />

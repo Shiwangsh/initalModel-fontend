@@ -4,8 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 // axios.interceptors.response.use(
 //   (response) => response,
@@ -23,7 +22,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ProSidebarProvider>
+      <App />
+    </ProSidebarProvider>
   </React.StrictMode>
 );
 
