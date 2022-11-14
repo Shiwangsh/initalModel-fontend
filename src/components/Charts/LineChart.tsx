@@ -1,27 +1,34 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React, { useState, useEffect } from "react";
+import { Bar, Bubble, Line, PolarArea, Scatter } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import axios from "axios";
 Chart.register(...registerables);
 
 const LineChart = () => {
+  const [dataArray, setDataArray] = useState([]);
+
+  const url = "http://localhost:9090/Transactions/month";
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const response = await axios.post(url, { month: 10 });
+    setDataArray(response.data.countStatsArray);
+  };
   return (
     <div>
-      <Line
+      <PolarArea
         data={{
-          labels: ["1", "5", "10", "15", "20", "15", "30"],
+          labels: ["Total Transactions"],
           datasets: [
             {
-              label: "Last Month",
-              data: [330, 250, 350, 510, 540, 760, 620],
-              fill: true,
-              backgroundColor: "rgba(75,192,192,0.2)",
-              borderColor: "rgba(75,192,192,1)",
-            },
-            {
-              label: "Curent Month",
-              data: [330, 530, 850, 410, 440, 650, 800],
-              fill: true,
-              borderColor: "#742774",
+              label: "Transactions",
+              data: dataArray,
+              backgroundColor: ["rgb(255, 99, 132)"],
+
+              borderWidth: 0.5,
             },
           ],
         }}

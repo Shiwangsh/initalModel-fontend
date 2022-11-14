@@ -48,7 +48,7 @@ const Home = () => {
       <div className="container-fluid px-4 mt-4 bg-white">
         <div className="row">
           <div className="col-xl-3 col-md-6">
-            <div className="card bg-primary text-white mb-4">
+            <div className="card bg-info text-white mb-4">
               <Link to={"../users"}>
                 <div className="card-footer d-flex align-items-center justify-content-between">
                   <p className="text-white">
@@ -74,7 +74,7 @@ const Home = () => {
           </div>
 
           <div className="col-xl-3 col-md-6">
-            <div className="card bg-warning text-white mb-4">
+            <div className="card bg-primary text-white mb-4">
               <Link to={"../routes"}>
                 <div className="card-footer d-flex align-items-center justify-content-between">
                   <p className="text-white">
@@ -90,7 +90,7 @@ const Home = () => {
         <div className="row">
           <div className="col-xl-6">
             <div className="card mb-4">
-              <div className="card-header">Transactions *EXAMPLE*</div>
+              <div className="card-header">Total Transactions this month</div>
               <div className="card-body">
                 <LineChart />
               </div>
@@ -98,7 +98,7 @@ const Home = () => {
           </div>
           <div className="col-xl-6">
             <div className="card mb-4">
-              <div className="card-header">Users *EXAMPLE*</div>
+              <div className="card-header">Transaction per day this month</div>
               <div className="card-body">
                 <BarChart />
               </div>

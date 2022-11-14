@@ -26,10 +26,7 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
       const res = await axios.get(url, {
         headers: AuthHeader(),
       });
-      // console.log(res.data.card);
       setCard(res.data.card);
-      // console.log(card);
-
       setCardID(res.data.card.uuid);
     };
     getCardDetails(user._id);
@@ -56,12 +53,19 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
               >
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
-                    <Link to="../../dashboard">Home</Link>
+                    <Link to="../../dashboard" style={{ color: "#23abc0" }}>
+                      Home
+                    </Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../users">Users</Link>
+                    <Link to="../users" style={{ color: "#23abc0" }}>
+                      Users
+                    </Link>
                   </li>
-                  <li className="breadcrumb-item active" aria-current="page">
+                  <li
+                    className="breadcrumb-item active font-weight-bold"
+                    aria-current="page"
+                  >
                     User Profile
                   </li>
                 </ol>
@@ -147,10 +151,18 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
                   <hr />
                   <div className="row">
                     <div className="col-sm-3">
-                      <p className="mb-0">User Type</p>
+                      <p className="mb-0">Status</p>
                     </div>
                     <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.userType}</p>
+                      {user["active"] ? (
+                        <p className="mb-0 badge badge-pill badge-success">
+                          Active
+                        </p>
+                      ) : (
+                        <p className="mb-0 badge badge-pill badge-danger">
+                          Inactive
+                        </p>
+                      )}
                     </div>
                   </div>
 

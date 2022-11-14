@@ -18,18 +18,29 @@ const ViewTicket = ({ ticket, card }: any) => {
             >
               <ol className="breadcrumb mb-0">
                 <li className="breadcrumb-item">
-                  <Link to="../../dashboard">Home</Link>
+                  <Link to="../../dashboard" style={{ color: "#23abc0" }}>
+                    Home
+                  </Link>
                 </li>
                 <li className="breadcrumb-item">
-                  <Link to="../cards">Cards</Link>
+                  <Link to="../cards" style={{ color: "#23abc0" }}>
+                    Cards
+                  </Link>
                 </li>
                 <li className="breadcrumb-item">
-                  <Link to="../viewCard" state={{ card: card }}>
+                  <Link
+                    to="../viewCard"
+                    state={{ card: card }}
+                    style={{ color: "#23abc0" }}
+                  >
                     Card Profile
                   </Link>
                 </li>
 
-                <li className="breadcrumb-item active" aria-current="page">
+                <li
+                  className="breadcrumb-item active font-weight-bold"
+                  aria-current="page"
+                >
                   Ticket Details
                 </li>
               </ol>

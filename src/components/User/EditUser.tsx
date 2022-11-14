@@ -67,13 +67,20 @@ const EditUser = ({ user, onActionChange }: any | (() => any)) => {
               >
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
-                    <Link to="../../dashboard">Home</Link>
+                    <Link to="../../dashboard" style={{ color: "#23abc0" }}>
+                      Home
+                    </Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../users">Users</Link>
+                    <Link to="../users" style={{ color: "#23abc0" }}>
+                      Users
+                    </Link>
                   </li>
 
-                  <li className="breadcrumb-item active" aria-current="page">
+                  <li
+                    className="breadcrumb-item active font-weight-bold"
+                    aria-current="page"
+                  >
                     Edit User Profile
                   </li>
                 </ol>

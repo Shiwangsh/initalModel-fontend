@@ -10,7 +10,7 @@ const ErrorModal = ({ text, closePopup }: any | (() => any)) => {
       </Modal.Header>
       <Modal.Body>{text}</Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={() => closePopup(true)}>
+        <Button variant="info" onClick={() => closePopup(true)}>
           Close
         </Button>
       </Modal.Footer>

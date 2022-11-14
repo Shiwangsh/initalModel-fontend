@@ -3,25 +3,30 @@ import { Outlet } from "react-router-dom";
 // import Navbar from "../components/Navbar/Navbar";
 import UnauthorizedPage from "./UnAuthPage/UnauthorizedPage";
 import LoginDropDown from "../components/Login/LoginDropDown";
+import Footer from "../components/Footer/Footer";
 
 const AdminDashboard = () => {
   if (localStorage.getItem("user")) {
     return (
-      <div
-        style={{
-          display: "flex",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        {/* <Navbar /> */}
-        <Sidiebar />
-        <div style={{ width: "100%" }}>
-          <div className="float-right m-3">
-            <LoginDropDown />
+      <>
+        <div
+          style={{
+            display: "flex",
+            backgroundColor: "#ffffff",
+            // height: "100vh",
+          }}
+        >
+          {/* <Navbar /> */}
+          <Sidiebar />
+          <div style={{ width: "100%" }}>
+            <div className="float-right m-3">
+              <LoginDropDown />
+            </div>
+            <Outlet />
           </div>
-          <Outlet />
         </div>
-      </div>
+        <Footer />
+      </>
     );
   }
   return <UnauthorizedPage />;

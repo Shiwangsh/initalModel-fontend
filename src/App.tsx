@@ -24,12 +24,19 @@ import ViewCard from "./components/Card/ViewCard";
 import SimulateTap from "./pages/SimulateTap/SimulateTap";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateStaff from "./components/Staff/CreateStaff";
+import About from "./pages/About";
+import FAQs from "./pages/FAQs";
+import Legal from "./pages/Legal";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
+        <Route path="about" element={<About />}></Route>
+        <Route path="faqs" element={<FAQs />}></Route>
+        <Route path="legal" element={<Legal />}></Route>
+
         <Route path="dashboard" element={<AdminDashboard />}>
           <Route path="home" element={<Home />} />
           <Route path="transactions" element={<Transactions />} />

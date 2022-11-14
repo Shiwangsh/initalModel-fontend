@@ -11,6 +11,8 @@ import {
   faUserPlus,
   faEye,
   faUserTie,
+  faFileInvoiceDollar,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -42,74 +44,91 @@ const Sidiebar = () => {
       <Menu style={{ color: "#38b297" }} closeOnClick={true}>
         <MenuItem
           routerLink={<Link to="home" />}
-          icon={<FontAwesomeIcon icon={faHome} />}
+          icon={<FontAwesomeIcon icon={faHome} size="lg" />}
         >
           Home
         </MenuItem>
 
-        <SubMenu label="Users" icon={<FontAwesomeIcon icon={faUsers} />}>
+        <SubMenu
+          label="Users"
+          icon={<FontAwesomeIcon icon={faUsers} size="lg" />}
+        >
           <MenuItem
-            icon={<FontAwesomeIcon icon={faEye} />}
+            icon={<FontAwesomeIcon icon={faEye} size="lg" />}
             routerLink={<Link to="users" />}
           >
             View Users
           </MenuItem>
           <MenuItem
             routerLink={<Link to="createUser" />}
-            icon={<FontAwesomeIcon icon={faUserPlus} />}
+            icon={<FontAwesomeIcon icon={faUserPlus} size="lg" />}
           >
             Add User
           </MenuItem>
         </SubMenu>
 
         <MenuItem
-          icon={<FontAwesomeIcon icon={faTicket} />}
+          icon={<FontAwesomeIcon icon={faFileInvoiceDollar} size="lg" />}
           routerLink={<Link to="transactions" />}
         >
-          All Transactions
+          Transactions
         </MenuItem>
 
         <MenuItem
           routerLink={<Link to="cards" />}
-          icon={<FontAwesomeIcon icon={faCreditCard} />}
+          icon={<FontAwesomeIcon icon={faCreditCard} size="lg" />}
         >
           Cards
         </MenuItem>
-        <MenuItem
-          routerLink={<Link to="buses" />}
-          icon={<FontAwesomeIcon icon={faBusSimple} />}
+        <SubMenu
+          label="Buses"
+          icon={<FontAwesomeIcon icon={faBusSimple} size="lg" />}
         >
-          Buses
-        </MenuItem>
+          <MenuItem
+            routerLink={<Link to="buses" />}
+            icon={<FontAwesomeIcon icon={faEye} size="lg" />}
+          >
+            View Buses
+          </MenuItem>
+          <MenuItem
+            routerLink={<Link to="createBus" />}
+            icon={<FontAwesomeIcon icon={faPlus} size="lg" />}
+          >
+            Add a Bus
+          </MenuItem>
+        </SubMenu>
         <MenuItem
           routerLink={<Link to="routes" />}
-          icon={<FontAwesomeIcon icon={faRoute} />}
+          icon={<FontAwesomeIcon icon={faRoute} size="lg" />}
         >
           Routes
         </MenuItem>
         <MenuItem
           routerLink={<Link to="loadBalance" />}
-          icon={<FontAwesomeIcon icon={faMoneyBills} />}
+          icon={<FontAwesomeIcon icon={faMoneyBills} size="lg" />}
         >
           Load Balance
         </MenuItem>
         <MenuItem
           routerLink={<Link to="simulateTap" />}
-          icon={<FontAwesomeIcon icon={faRobot} />}
+          icon={<FontAwesomeIcon icon={faRobot} size="lg" />}
         >
           Simulate Tap
         </MenuItem>
         {user.staffType === "Admin" ? (
-          <SubMenu label="Staffs" icon={<FontAwesomeIcon icon={faUserTie} />}>
+          <SubMenu
+            label="Staffs"
+            icon={<FontAwesomeIcon icon={faUserTie} size="lg" />}
+          >
             <MenuItem
-              icon={<FontAwesomeIcon icon={faEye} />}
+              icon={<FontAwesomeIcon icon={faEye} size="lg" />}
               routerLink={<Link to="staffs" />}
             >
               View Staffs
             </MenuItem>
             <MenuItem
               routerLink={<Link to="createStaff" />}
-              icon={<FontAwesomeIcon icon={faUserPlus} />}
+              icon={<FontAwesomeIcon icon={faUserPlus} size="lg" />}
             >
               Add Staff
             </MenuItem>

@@ -17,7 +17,7 @@ const StaffTable = ({ users }: any) => {
             <th>Staff Type</th>
             <th>Address</th>
             <th>Contact Number</th>
-            <th>Action</th>
+            {/* <th>Action</th>  */}
           </tr>
         </thead>
 
@@ -33,7 +33,7 @@ const StaffTable = ({ users }: any) => {
                 <td>{user["staffType"]}</td>
                 <td>{user["address"]}</td>
                 <td>{user["contactNumber"]}</td>
-                <td>
+                {/* <td>
                   <Link to="../userProfile" state={{ user: user }}>
                     <FontAwesomeIcon
                       icon={faEye}
@@ -41,7 +41,7 @@ const StaffTable = ({ users }: any) => {
                       color="#0b7312"
                     />
                   </Link>
-                </td>
+                </td> */}
               </tr>
             );
           })}

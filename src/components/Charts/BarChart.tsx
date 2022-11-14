@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import axios from "axios";
 Chart.register(...registerables);
 
 const BarChart = () => {
+  const [dataArray, setDataArray] = useState([]);
+
+  const url = "http://localhost:9090/Transactions/week";
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const response = await axios.get(url);
+    setDataArray(response.data.countStatsArray);
+  };
+
   return (
     <div>
       <Bar
         data={{
           labels: [
-            "January",
-            "Feburary",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "september",
-            "October",
-            "November",
-            "December",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
           ],
           datasets: [
             {
-              label: "Number of Users",
-              data: [
-                120, 200, 350, 600, 900, 1500, 2000, 3000, 3400, 4000, 5000,
-                6000,
-              ],
-              backgroundColor: "rgb(114, 67, 136,0.5)",
-              borderColor: "rgba(255, 99, 132, 1)",
-
+              label: "Transactions",
+              data: dataArray,
+              backgroundColor: "#4dcdcb",
+              borderColor: "#4dcdcb",
               borderWidth: 0.5,
             },
           ],

@@ -2,13 +2,14 @@ import axios from "axios";
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import authHeader from "../../services/auth-header";
 
 const DeleteUser = ({ id, closePopup }: any | (() => any)) => {
   let navigate = useNavigate();
 
   const handleDelete = async () => {
     const url = `http://localhost:9090/users/${id}`;
-    await axios.delete(url);
+    await axios.delete(url, { headers: authHeader() });
     navigate("../users");
   };
 

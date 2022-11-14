@@ -71,11 +71,7 @@ const EditBalance = ({ card }: any) => {
         </div>
         <div className="row">
           <div className="col-sm-3">
-            <Button
-              type="submit"
-              className="btn btn-success"
-              onClick={handleSubmit}
-            >
+            <Button type="submit" variant="outline-info" onClick={handleSubmit}>
               Submit
             </Button>
           </div>

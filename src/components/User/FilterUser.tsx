@@ -27,13 +27,13 @@ const FilterUser = ({ setFilterQuery, userModal }: any) => {
           <Form.Group as={Col}>
             {userModal === "user" ? (
               <Form.Select
-                name="userType"
+                name="active"
                 onChange={handleChange}
                 aria-label="Default select example"
               >
-                <option>User Type</option>
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
+                <option>Status</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
               </Form.Select>
             ) : (
               <Form.Select

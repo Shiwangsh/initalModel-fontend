@@ -10,7 +10,7 @@ import { Button, Table } from "react-bootstrap";
 const TransactionTable = ({ data, getTransaction }: any) => {
   return (
     <div className="m-2">
-      <Table striped bordered hover responsive>
+      <Table striped bordered hover responsive size="sm">
         <thead className="thead-dark">
           <tr>
             <th>ID</th>
@@ -61,7 +61,10 @@ const TransactionTable = ({ data, getTransaction }: any) => {
                     />
                   </td>
                 )}
-                <td>{transaction["createdAt"]}</td>
+                <td>
+                  {transaction["createdAt"].substring(0, 10)} ,{" "}
+                  {transaction["createdAt"].substring(11, 18)}{" "}
+                </td>
                 <td>
                   <Button
                     variant="none"

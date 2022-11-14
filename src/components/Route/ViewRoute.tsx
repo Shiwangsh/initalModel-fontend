@@ -10,63 +10,12 @@ import { useLocation } from "react-router-dom";
 import ReactLoading from "react-loading";
 
 export default function ViewRoute() {
-  // useEffect(() => {
-  //   if (route) {
-  //     let positionsNEW = route.stops.map((stop: any) => {
-  //       return `${stop.latitude} ${stop.longitude}`;
-  //     });
-  //   }
-  //   // console.log(positionsNEW);
-  // });
-
   const mapStyles = {
     height: "50vh",
     width: "100%",
   };
   const location = useLocation();
   const [route, setRoute] = useState(location.state.route);
-
-  const path = [
-    { lat: 37.772, lng: -122.214 },
-    { lat: 21.291, lng: -157.821 },
-    { lat: -18.142, lng: 178.431 },
-    { lat: -27.467, lng: 153.027 },
-  ];
-
-  // const options = {
-  //   strokeColor: "#FF0000",
-  //   strokeOpacity: 0.8,
-  //   strokeWeight: 2,
-  //   fillColor: "#FF0000",
-  //   fillOpacity: 0.35,
-  //   clickable: false,
-  //   draggable: false,
-  //   editable: false,
-  //   visible: true,
-  //   radius: 30000,
-  //   paths: [
-  //     { lat: 37.772, lng: -122.214 },
-  //     { lat: 21.291, lng: -157.821 },
-  //     { lat: -18.142, lng: 178.431 },
-  //     { lat: -27.467, lng: 153.027 },
-  //   ],
-  //   zIndex: 1,
-  // };
-
-  // const positions = [...route.stops];
-  // console.log("new Positions", positions);
-
-  // // let latitudes = positions.map(function (element) {
-  // //   return `${element.latitude}`;
-  // // });
-  // // let longitudes = positions.map(function (element) {
-  // //   return `${element.longitude}`;
-  // // });
-
-  // // console.log("latitude", latitudes);
-  // // console.log("longitudes", longitudes);
-
-  // console.log("ONLY THE LATS n lONS", positions);
 
   let coords = route.stops.map((points: any) => {
     return { lat: points.latitude, lng: points.longitude };
@@ -89,14 +38,13 @@ export default function ViewRoute() {
     <div className="m-2">
       <GoogleMap
         zoom={13}
-        center={{ lat: 27.7, lng: 85.3 }}
+        center={{ lat: 27.7172, lng: 85.324 }}
         mapContainerStyle={mapStyles}
       >
-        return{" "}
         <PolylineF
           path={coords}
           options={{
-            strokeColor: "#b820d6c0",
+            strokeColor: "#45c3b2",
             strokeWeight: 5,
 
             clickable: false,
@@ -107,19 +55,20 @@ export default function ViewRoute() {
           }}
         />
         ;
-        {route.stops.map((stop: any) => {
+        {route.stops.map((stop: any, index: any) => {
           return (
             <MarkerF
+              key={index}
               position={{
                 lat: stop.latitude,
                 lng: stop.longitude,
               }}
               icon={{
                 path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
-                fillColor: "#e60000",
-                fillOpacity: 0.9,
+                fillColor: "#00d5b9",
+                fillOpacity: 1,
                 scale: 0.05,
-                strokeColor: "#b820d6c0",
+                strokeColor: "#ffffffc0",
                 strokeWeight: 2,
               }}
             />
@@ -167,9 +116,9 @@ export default function ViewRoute() {
             </tr>
           </thead>
           <tbody>
-            {route.stops.map((stop: any) => {
+            {route.stops.map((stop: any, index: any) => {
               return (
-                <tr>
+                <tr key={index}>
                   <th>{stop.number}</th>
                   <th>{stop.distance}</th>
                   <th>{stop.latitude.toFixed(3)}</th>

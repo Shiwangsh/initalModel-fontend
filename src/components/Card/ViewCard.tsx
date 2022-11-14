@@ -17,6 +17,8 @@ import {
 import authHeader from "../../services/auth-header";
 import ErrorModal from "../ErrorModal";
 import loadData from "../../services/load-data";
+import TransactionTable from "../Transaction/TransactionTable";
+import CustomPagination from "../Pagination";
 
 const ViewCard = () => {
   const location = useLocation();
@@ -28,6 +30,21 @@ const ViewCard = () => {
   const [transactions, setTransactions] = useState<any>();
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(false);
+
+  //Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showData, setShowData] = useState([]);
+  useEffect(() => {
+    if (transactions) setShowData(transactions.slice(0, 10));
+  }, [transactions]);
+  // Paginaton handel
+  const handleClick = (page: any) => {
+    setCurrentPage(page);
+    const pageIndex = page - 1;
+    const firstIndex = pageIndex * 10;
+    const lastIndex = pageIndex * 10 + 10;
+    setShowData(transactions.slice(firstIndex, lastIndex));
+  };
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -70,6 +87,7 @@ const ViewCard = () => {
   }, [navigate, cardUser, error]);
 
   if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
+  console.log(card.user.active);
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
@@ -88,13 +106,20 @@ const ViewCard = () => {
             >
               <ol className="breadcrumb mb-0">
                 <li className="breadcrumb-item">
-                  <Link to="../../dashboard">Home</Link>
+                  <Link to="../../dashboard" style={{ color: "#23abc0" }}>
+                    Home
+                  </Link>
                 </li>
                 <li className="breadcrumb-item">
-                  <Link to="../cards">Cards</Link>
+                  <Link to="../cards" style={{ color: "#23abc0" }}>
+                    Cards
+                  </Link>
                 </li>
 
-                <li className="breadcrumb-item active" aria-current="page">
+                <li
+                  className="breadcrumb-item active font-weight-bold"
+                  aria-current="page"
+                >
                   Card Profile
                 </li>
               </ol>
@@ -110,7 +135,9 @@ const ViewCard = () => {
               <p className="mb-0">Card ID</p>
             </div>
             <div className="col-sm-9">
-              <p className="text-muted mb-0">{card.uuid}</p>
+              <small>
+                <p className="text-muted mb-0">{card.uuid}</p>
+              </small>
             </div>
           </div>
           <hr />
@@ -119,12 +146,10 @@ const ViewCard = () => {
               <p className="mb-0">Balance</p>
             </div>
             <div className="col-sm-9">
-              <p className="text-muted mb-0">{card.balance}</p>
+              <p className="text-muted mb-0">{card.balance.toFixed(2)}</p>
             </div>
           </div>
-
           <hr />
-
           <div className="row">
             <div className="col-sm-3">
               <p className="mb-0">Card Type</p>
@@ -149,7 +174,7 @@ const ViewCard = () => {
           </div>
         </div>
       </div>
-      <div className="card">
+      <div className="card card-body">
         <h3>Transactions</h3>
         <Table striped bordered responsive size="sm">
           <thead className="thead-dark">
@@ -157,12 +182,12 @@ const ViewCard = () => {
               <th>ID</th>
               <th>Status</th>
               <th>Type</th>
-              <th>Created At</th>
+              <th>Date and Time</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction: any, index: any) => {
+            {showData.map((transaction: any, index: any) => {
               return (
                 <tr key={index}>
                   <td>
@@ -207,7 +232,10 @@ const ViewCard = () => {
                   )}
 
                   {/* <td>{transaction["type"]}</td> */}
-                  <td>{transaction["createdAt"]}</td>
+                  <td>
+                    {transaction["createdAt"].substring(0, 10)},
+                    {transaction["createdAt"].substring(11, 18)}
+                  </td>
                   <td>
                     <Button
                       variant="none"
@@ -225,6 +253,11 @@ const ViewCard = () => {
             })}
           </tbody>
         </Table>
+        <CustomPagination
+          dataPerPage={10}
+          totalData={transactions.length}
+          paginate={handleClick}
+        />
       </div>
     </section>
   );

@@ -100,7 +100,6 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="name"
-                  //   value={fieldValue.name}
                   onChange={handleChange}
                 />
               </div>
@@ -114,7 +113,6 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="email"
-                  //   value={fieldValue.email}
                   onChange={handleChange}
                 />
               </div>
@@ -129,7 +127,6 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="password"
-                  //   value={fieldValue.email}
                   onChange={handleChange}
                 />
               </div>
@@ -144,7 +141,6 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="contactNumber"
-                  //   value={fieldValue.contactNumber}
                   onChange={handleChange}
                 />
               </div>
@@ -158,35 +154,12 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="address"
-                  //   value={fieldValue.address}
                   onChange={handleChange}
                 />
               </div>
             </div>
             <hr />
-            <div className="row">
-              <div className="col-sm-3">
-                <p className="mb-0">User Type</p>
-              </div>
-              <div className="col-sm-9">
-                <Form.Select
-                  aria-label="Default select example"
-                  className=" w-25"
-                  name="userType"
-                  onChange={handleChange}
-                  defaultValue="User"
 
-                  //   value="User"
-                >
-                  {/* <option value="none" selected disabled hidden>
-                    Select an Option
-                  </option> */}
-                  <option value="User">User</option>
-                  <option value="Admin">Admin</option>
-                </Form.Select>
-              </div>
-            </div>
-            <hr />
             <div className="row">
               <div className="col-sm-3">
                 <p className="mb-0">Card Type</p>

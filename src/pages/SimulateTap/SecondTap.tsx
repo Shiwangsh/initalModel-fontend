@@ -46,18 +46,18 @@ const SecondTap = () => {
   };
 
   return (
-    <div className="card m-4">
-      {error ? (
-        <ErrorModal text={error} closePopup={() => setError(false)} />
-      ) : null}
-      {success ? (
-        <SucessModal
-          text="Travel complete🚌👌"
-          closePopup={() => setSuccess(false)}
-        />
-      ) : null}
+    <div className="card m-4 border border-info">
+      <h5 className="card-header">Second Tap</h5>
       <div className="card-body">
-        <h3>Second Tap</h3>
+        {error ? (
+          <ErrorModal text={error} closePopup={() => setError(false)} />
+        ) : null}
+        {success ? (
+          <SucessModal
+            text="Travel complete🚌👌"
+            closePopup={() => setSuccess(false)}
+          />
+        ) : null}
 
         <div className="row">
           <div className="col-sm-3">
@@ -93,19 +93,6 @@ const SecondTap = () => {
             </Form.Select>
           </div>
         </div>
-
-        {/* <div className="row">
-          <div className="col-sm-3">
-            <p className="mb-0">Route ID</p>
-          </div>
-          <div className="col-sm-9">
-            <input
-              className="form-control rounded-left w-50"
-              name="routeID"
-              onChange={handleChange}
-            />
-          </div>
-        </div> */}
         <br />
 
         <div className="row">
@@ -138,6 +125,7 @@ const SecondTap = () => {
         <div className="row">
           <div className="col-sm-3">
             <Button
+              variant="info"
               type="submit"
               className="btn btn-success"
               onClick={handleSubmit}

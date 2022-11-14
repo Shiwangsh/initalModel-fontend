@@ -32,7 +32,7 @@ const LoadBalance = () => {
       {error ? (
         <ErrorModal text={error} closePopup={() => setError(false)} />
       ) : null}
-      <div className="card m-4">
+      <div className="card m-4 mt-20">
         <div className="card-body">
           <div className="row">
             <div className="col-sm-3">
@@ -48,7 +48,7 @@ const LoadBalance = () => {
           </div>
           <div className="row">
             <div className="col-sm-3">
-              <Button type="submit" className="btn btn-success">
+              <Button variant="outline-info" type="submit">
                 Submit
               </Button>
             </div>

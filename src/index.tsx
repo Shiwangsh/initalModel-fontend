@@ -4,6 +4,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
+// import "./index.css";
+
 import { ProSidebarProvider } from "react-pro-sidebar";
 
 // axios.interceptors.response.use(

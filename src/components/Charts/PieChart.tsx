@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Doughnut, Pie, PolarArea } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import axios from "axios";
-import { access } from "fs/promises";
 Chart.register(...registerables);
 
 const PieChart = () => {
@@ -32,17 +31,14 @@ const PieChart = () => {
       }, {});
       const values = Object.values(result);
       const keys = Object.keys(result);
-      console.log(keys);
-      console.log(values);
       setValues(values);
       setKeys(keys);
     }
   }, [cards]);
 
-  // console.log(total);
   return (
     <div>
-      <Pie
+      <Doughnut
         data={{
           labels: keys,
           datasets: [

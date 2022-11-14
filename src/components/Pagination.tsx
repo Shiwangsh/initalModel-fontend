@@ -15,15 +15,13 @@ const CustomPagination = ({ dataPerPage, totalData, paginate }: any) => {
 
   return (
     <nav>
-      <ul className="pagination">
+      <Pagination>
         {pageNumbers.map((number, index) => (
-          <Pagination key={index}>
-            <Pagination.Item onClick={() => paginate(number)}>
-              {number}
-            </Pagination.Item>
-          </Pagination>
+          <Pagination.Item key={index} onClick={() => paginate(number)}>
+            {number}
+          </Pagination.Item>
         ))}
-      </ul>
+      </Pagination>
     </nav>
   );
 };

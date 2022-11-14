@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import ErrorModal from "../ErrorModal";
 import SucessModal from "../SucessModal";
+import loadData from "../../services/load-data";
+import Form from "react-bootstrap/Form";
 
 const CreateBus = () => {
   const [fieldValue, setFieldValue] = useState<any>();
   const [error, setError] = useState<any>();
   const [success, setSuccess] = useState<any>(false);
+  const [routes, setRoutes] = useState<any>();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getRoutes = async () => {
+      const data = await loadData("http://localhost:9090/routes");
+      setRoutes(data.routes);
+    };
+    getRoutes();
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -117,20 +127,26 @@ const CreateBus = () => {
             <hr />
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Route ID</p>
+                <p className="mb-0">Route</p>
               </div>
               <div className="col-sm-9">
-                <input
-                  className="form-control rounded-left w-25"
+                <Form.Select
+                  className="w-25"
                   name="route"
-                  //   value={fieldValue.email}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">Select a Route</option>
+                  {routes
+                    ? routes.map((route: any, index: any) => (
+                        <option value={route["_id"]} key={index}>
+                          {route["routeName"]}
+                        </option>
+                      ))
+                    : null}
+                </Form.Select>
               </div>
             </div>
           </div>
-
-          <hr />
 
           <div className="login-wrap p-4">
             <button type="submit" className="btn btn-success">
