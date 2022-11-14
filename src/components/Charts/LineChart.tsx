@@ -19,16 +19,32 @@ const LineChart = () => {
   };
   return (
     <div>
-      <PolarArea
+      {/* <PolarArea */}
+      <Line
         data={{
-          labels: ["Total Transactions"],
+          labels: [
+            "January",
+            "Feburary",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
           datasets: [
             {
               label: "Transactions",
-              data: dataArray,
-              backgroundColor: ["rgb(255, 99, 132)"],
+              data: [65, 59, 80, 81, 56, 55, 40, 80, 90, 150, 200, 250],
+              backgroundColor: ["rgba(73, 232, 192, 0.562)"],
+              fill: true,
 
-              borderWidth: 0.5,
+              borderWidth: 1,
+              borderColor: "rgb(75, 192, 192)",
             },
           ],
         }}

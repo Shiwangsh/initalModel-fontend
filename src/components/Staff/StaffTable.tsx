@@ -1,11 +1,10 @@
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const StaffTable = ({ users }: any) => {
-  console.log(users);
   return (
     <div className="m-2">
       <Table striped bordered hover responsive>
@@ -17,7 +16,7 @@ const StaffTable = ({ users }: any) => {
             <th>Staff Type</th>
             <th>Address</th>
             <th>Contact Number</th>
-            {/* <th>Action</th>  */}
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -33,15 +32,16 @@ const StaffTable = ({ users }: any) => {
                 <td>{user["staffType"]}</td>
                 <td>{user["address"]}</td>
                 <td>{user["contactNumber"]}</td>
-                {/* <td>
-                  <Link to="../userProfile" state={{ user: user }}>
+
+                <td>
+                  <Link to="../editStaff" state={{ user: user }}>
                     <FontAwesomeIcon
-                      icon={faEye}
+                      icon={faEdit}
                       className="pl-1"
                       color="#0b7312"
                     />
                   </Link>
-                </td> */}
+                </td>
               </tr>
             );
           })}

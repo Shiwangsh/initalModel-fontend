@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CurrentUser = () => {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "");
   return (
     <>
@@ -92,11 +93,20 @@ const CurrentUser = () => {
                   </div>
 
                   <hr />
-                  {/* <div className="row"> */}
-                  <div className="col-sm-9 text-danger">
-                    Contact Shiwangsh to edit your data
-                    {/* </div> */}
-                  </div>
+                  {user.staffType === "Admin" ? (
+                    <Button
+                      variant="outline-info"
+                      onClick={() =>
+                        navigate("../editStaff", { state: { user: user } })
+                      }
+                    >
+                      edit
+                    </Button>
+                  ) : (
+                    <p className="col-sm-9 text-danger">
+                      Contact Admin to edit your data
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

@@ -33,7 +33,7 @@ const UserTable = ({ users }: any) => {
             <th>Card Type</th>
             <th>Address</th>
             <th>Contact Number</th>
-            <th>Active</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>

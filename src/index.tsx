@@ -8,7 +8,7 @@ import "./style.css";
 
 import { ProSidebarProvider } from "react-pro-sidebar";
 
-// axios.interceptors.response.use(
+//! axios.interceptors.response.use(
 //   (response) => response,
 //   (error) => {
 //     if (error.response.status === 401) {

@@ -175,9 +175,7 @@ const CreateStaff = () => {
 
                   //   value="User"
                 >
-                  {/* <option value="none" selected disabled hidden>
-                    Select an Option
-                  </option> */}
+                  <option>Select an Option</option>
                   <option value="Admin">Admin</option>
                   <option value="Level1">Level1</option>
                   <option value="Level2">Level2</option>

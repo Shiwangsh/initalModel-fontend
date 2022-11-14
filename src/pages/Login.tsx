@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../logo.png";
+import logo from "../yatri.png";
 import ErrorModal from "../components/ErrorModal";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -43,13 +43,13 @@ const Login = () => {
             <div className="col-md-6 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
                 <h3 className="text-center text-info">
-                  Smart Ticketing System
+                  Smart E-Ticketing System
                 </h3>
                 <img
                   src={logo}
-                  alt="avatar"
+                  alt="logo"
                   className="rounded mx-auto d-block"
-                  style={{ width: "150px" }}
+                  style={{ width: "100px" }}
                 />
                 <form action="#" className="login-form">
                   <div className="form-group">

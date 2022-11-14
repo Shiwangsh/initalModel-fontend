@@ -7,7 +7,6 @@ import AuthHeader from "../../services/auth-header";
 
 const EditUser = ({ user, onActionChange }: any | (() => any)) => {
   let navigate = useNavigate();
-  // console.log(user);
   const defaultUser = {
     id: user._id,
     name: user.name,

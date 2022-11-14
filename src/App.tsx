@@ -27,6 +27,7 @@ import CreateStaff from "./components/Staff/CreateStaff";
 import About from "./pages/About";
 import FAQs from "./pages/FAQs";
 import Legal from "./pages/Legal";
+import EditStaff from "./components/Staff/EditStaff";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="users" element={<AllUsers />} />
           <Route path="staffs" element={<Staffs />} />
           <Route path="createStaff" element={<CreateStaff />} />
+          <Route path="editStaff" element={<EditStaff />} />
 
           <Route path="routes" element={<BusRoutes />} />
           <Route path="viewCard" element={<ViewCard />} />
@@ -56,6 +58,7 @@ function App() {
           <Route path="createBus" element={<CreateBus />} />
           <Route path="createRoute" element={<CreateRoute />} />
           <Route path="currentUser" element={<CurrentUser />} />
+
           <Route path="viewTransaction" element={<ViewTransaction />} />
           <Route path="simulateTap" element={<SimulateTap />} />
           <Route path="sidebar" element={<Sidebar />} />

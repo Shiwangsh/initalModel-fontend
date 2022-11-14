@@ -110,6 +110,7 @@ export default function ViewRoute() {
           <thead className="thead-light">
             <tr>
               <th>Stop Number</th>
+              <th>Stop Name</th>
               <th>Distance till next Stop</th>
               <th>Latitude co-ordinates</th>
               <th>Longitude co-ordinates</th>
@@ -120,7 +121,9 @@ export default function ViewRoute() {
               return (
                 <tr key={index}>
                   <th>{stop.number}</th>
+                  <th>{stop.name}</th>
                   <th>{stop.distance}</th>
+
                   <th>{stop.latitude.toFixed(3)}</th>
                   <th>{stop.longitude.toFixed(3)}</th>
                 </tr>

@@ -1,23 +1,27 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ErrorModal from "../ErrorModal";
-import SucessModal from "../SucessModal";
-import authHeader from "../../services/auth-header";
-import { Button } from "react-bootstrap";
+import AuthHeader from "../../services/auth-header";
 
-const CreateUser = () => {
-  const [fieldValue, setFieldValue] = useState<any>({
-    userType: "User",
-    cardType: "Standard",
-  });
+const EditStaff = () => {
+  const location = useLocation();
+  const [user, setUser] = useState(location.state.user);
+  let navigate = useNavigate();
+  //   console.log(user);
+  const defaultUser = {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    password: user.password,
+    address: user.address,
+    contactNumber: user.contactNumber,
+    staffType: user.staffType,
+  };
+  const [fieldValue, setFieldValue] = useState(defaultUser);
+
   const [error, setError] = useState<any>();
-  const [success, setSuccess] = useState<any>(false);
-
-  const navigate = useNavigate();
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -25,23 +29,21 @@ const CreateUser = () => {
       ...fieldValue,
       [name]: value,
     });
+    console.log(fieldValue);
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(fieldValue);
-
-    const url = `http://localhost:9090/users/`;
+    const url = `http://localhost:9090/staffs/${defaultUser.id}`;
     await axios
-      .post(url, fieldValue, { headers: authHeader() })
+      .patch(url, fieldValue, {
+        headers: AuthHeader(),
+      })
       .then((res) => {
-        console.log(res);
-
-        setSuccess(true);
-        setTimeout(() => navigate(0), 1000);
+        console.log(res.data.staff);
+        navigate("../staffs");
       })
       .catch((error) => {
-        // console.log(error.response.data.message);
         if (error.response) {
           console.log(error.response);
           setError(error.response.data.message);
@@ -50,13 +52,11 @@ const CreateUser = () => {
         }
       });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       {error ? (
         <ErrorModal text={error} closePopup={() => setError(false)} />
-      ) : null}
-      {success ? (
-        <SucessModal text="User created" closePopup={() => setSuccess(false)} />
       ) : null}
       <section style={{ backgroundColor: "#eee" }}>
         <div className="container">
@@ -73,16 +73,16 @@ const CreateUser = () => {
                     </Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <Link to="../users" style={{ color: "#23abc0" }}>
-                      Users
+                    <Link to="../staffs" style={{ color: "#23abc0" }}>
+                      Staffs
                     </Link>
                   </li>
 
                   <li
-                    className="breadcrumb-item font-weight-bold"
+                    className="breadcrumb-item active font-weight-bold"
                     aria-current="page"
                   >
-                    Create User
+                    Edit Staff Profile
                   </li>
                 </ol>
               </nav>
@@ -100,6 +100,7 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="name"
+                  value={fieldValue.name}
                   onChange={handleChange}
                 />
               </div>
@@ -113,13 +114,15 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="email"
+                  value={fieldValue.email}
                   onChange={handleChange}
                 />
               </div>
             </div>
 
             <hr />
-            {/* <div className="row">
+
+            <div className="row">
               <div className="col-sm-3">
                 <p className="mb-0">Password</p>
               </div>
@@ -127,12 +130,13 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="password"
+                  value={fieldValue.password}
                   onChange={handleChange}
                 />
               </div>
-            </div> */}
-
+            </div>
             <hr />
+
             <div className="row">
               <div className="col-sm-3">
                 <p className="mb-0">Phone</p>
@@ -141,6 +145,7 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="contactNumber"
+                  value={fieldValue.contactNumber}
                   onChange={handleChange}
                 />
               </div>
@@ -154,36 +159,36 @@ const CreateUser = () => {
                 <input
                   className="form-control rounded-left w-25"
                   name="address"
+                  value={fieldValue.address}
                   onChange={handleChange}
                 />
               </div>
             </div>
             <hr />
-
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Card Type</p>
+                <p className="mb-0">Role</p>
               </div>
               <div className="col-sm-9">
                 <Form.Select
                   aria-label="Default select example"
                   className=" w-25"
-                  name="cardType"
-                  defaultValue="Standard"
+                  name="staffType"
                   onChange={handleChange}
+                  value={fieldValue.staffType}
                 >
-                  <option value="Student">Student</option>
-                  <option value="Senior">Senior</option>
-                  <option value="Standard">Standard</option>
+                  <option>Select an Option</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Level1">Level1</option>
+                  <option value="Level2">Level2</option>
                 </Form.Select>
               </div>
             </div>
           </div>
-
           <div className="login-wrap p-4">
-            <Button type="submit" variant="outline-success">
+            <button type="submit" className="btn btn-success">
               Submit
-            </Button>
+            </button>
           </div>
         </div>
       </section>
@@ -191,4 +196,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default EditStaff;
