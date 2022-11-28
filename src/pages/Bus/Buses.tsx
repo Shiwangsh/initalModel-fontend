@@ -12,9 +12,10 @@ import EditBus from "../../components/Bus/EditBus";
 import CustomPagination from "../../components/Pagination";
 import filterResults from "../../services/filter-results";
 import BusFilter from "../../components/Bus/FilterBus";
+import loadData from "../../services/load-data";
 
 const AllCards = () => {
-  const [buses, setBuses] = useState([]);
+  const [buses, setBuses] = useState<any>();
   const [route, setRoute] = useState();
   const [search, setSearch] = useState<any>(" ");
   const [open, setOpen] = useState<any>(false);
@@ -56,11 +57,8 @@ const AllCards = () => {
 
   useEffect(() => {
     const getBuses = async () => {
-      const res = await axios.get(
-        `http://localhost:9090/buses?search=${search}`
-      );
-      const { data } = res;
-      setBuses(data.buses);
+      const res = await loadData(`http://localhost:9090/buses`);
+      setBuses(res.buses);
       setFetching(false);
     };
     getBuses();
@@ -75,14 +73,14 @@ const AllCards = () => {
   }, [route, navigate]);
 
   const getRouteOnClick = async (
-    routeID: any,
+    route: any,
     e: React.MouseEvent<HTMLElement>
   ) => {
     e.preventDefault();
-    const url = ` http://localhost:9090/routes/${routeID}`;
-    const res = await axios.get(url);
-    const { data } = res;
-    setRoute(data.route);
+    // const url = ` http://localhost:9090/routes/${routeID}`;
+    // const res = await axios.get(url);
+    // const { data } = res;
+    setRoute(route);
   };
 
   const editBus = (bus: any, e: React.MouseEvent<HTMLElement>) => {
@@ -102,10 +100,10 @@ const AllCards = () => {
   return (
     <>
       {open ? <EditBus bus={bus} closePopup={() => setOpen(false)} /> : null}
-      <Search
+      {/* <Search
         setSearch={(search: any) => setSearch(search)}
         placeHolder="Enter regNum to search"
-      />
+      /> */}
       <Button
         variant="outline-info"
         className="m-2"
@@ -136,7 +134,7 @@ const AllCards = () => {
                 <td>
                   <Button
                     variant="outline-dark"
-                    onClick={(e) => getRouteOnClick(bus["route"]["_id"], e)}
+                    onClick={(e) => getRouteOnClick(bus["route"], e)}
                   >
                     {bus["route"]["routeName"]}
                   </Button>

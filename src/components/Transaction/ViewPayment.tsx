@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ViewPayment = ({ payment, card }: any) => {
   const navigate = useNavigate();
-  console.log(payment);
+  // console.log(payment);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>
       <div className="container">
@@ -85,7 +85,7 @@ const ViewPayment = ({ payment, card }: any) => {
                   <p className="mb-0">Amount</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">{payment.amount.toFixed(2)}</p>
+                  <p className="text-muted mb-0">{payment.amount}</p>
                 </div>
               </div>
               <hr />
@@ -94,9 +94,7 @@ const ViewPayment = ({ payment, card }: any) => {
                   <p className="mb-0">Previous Amount</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">
-                    {payment.balanceBefore.toFixed(2)}
-                  </p>
+                  <p className="text-muted mb-0">{payment.balanceBefore}</p>
                 </div>
               </div>
               <hr />
@@ -105,9 +103,7 @@ const ViewPayment = ({ payment, card }: any) => {
                   <p className="mb-0">Balance updated to</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">
-                    {payment.balanceAfter.toFixed(2)}
-                  </p>
+                  <p className="text-muted mb-0">{payment.balanceAfter}</p>
                 </div>
               </div>
               <hr />
@@ -117,7 +113,9 @@ const ViewPayment = ({ payment, card }: any) => {
                   <p className="mb-0">Created At</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">{payment["createdAt"]}</p>
+                  <p className="text-muted mb-0">
+                    {new Date(payment["createdAt"]).toString()}
+                  </p>
                 </div>
               </div>
             </div>

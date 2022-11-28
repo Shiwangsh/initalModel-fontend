@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteUser from "./DeleteUser";
-import axios from "axios";
-import AuthHeader from "../../services/auth-header";
+import loadData from "../../services/load-data";
 
 const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
   const [open, setOpen] = useState<any>(false);
@@ -23,19 +22,12 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
   useEffect(() => {
     const getCardDetails = async (userID: any) => {
       const url = `http://localhost:9090/cards/user/${userID}`;
-      const res = await axios.get(url, {
-        headers: AuthHeader(),
-      });
-      setCard(res.data.card);
-      setCardID(res.data.card.uuid);
+      const res = await loadData(url);
+      setCard(res.card);
+      setCardID(res.card.uuid);
     };
     getCardDetails(user._id);
   }, [user._id]);
-
-  const navigateToCard = (e: any) => {
-    e.preventDefault();
-    navigate("../viewCard", { state: { card: card } });
-  };
 
   return (
     <>
@@ -174,7 +166,9 @@ const ViewUser = ({ user, onActionChange }: any | (() => any)) => {
                     <div className="col-sm-9">
                       <Button
                         variant="outline-info"
-                        onClick={(e) => navigateToCard(e)}
+                        onClick={() => {
+                          navigate("../viewCard", { state: { card: card } });
+                        }}
                       >
                         {cardID}
                       </Button>

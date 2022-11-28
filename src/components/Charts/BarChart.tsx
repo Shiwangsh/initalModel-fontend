@@ -7,7 +7,7 @@ Chart.register(...registerables);
 const BarChart = () => {
   const [dataArray, setDataArray] = useState([]);
 
-  const url = "http://localhost:9090/Transactions/week";
+  const url = "http://localhost:9090/Transactions/month";
 
   useEffect(() => {
     getData();
@@ -23,13 +23,18 @@ const BarChart = () => {
       <Bar
         data={{
           labels: [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
+            "January",
+            "Feburary",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
           ],
           datasets: [
             {
@@ -41,8 +46,10 @@ const BarChart = () => {
             },
           ],
         }}
-        width={200}
-        height={200}
+        // width={200}
+        // height={200}
+        width={700}
+        height={400}
         options={{
           maintainAspectRatio: false,
           scales: {

@@ -26,8 +26,9 @@ const Transactions = () => {
   useEffect(() => {
     if (filterQuery) {
       const getData = async () => {
-        const data = await filterResults(url, filterQuery);
-        settransactions(data.transactions);
+        const res = await filterResults(url, filterQuery);
+        const { data } = res;
+        settransactions(data.data);
         setFetching(false);
       };
       getData();
@@ -51,27 +52,25 @@ const Transactions = () => {
   // Load transactions
   useEffect(() => {
     const getData = async () => {
-      const data = await loadData(`${url}`);
-      settransactions(data.transactions);
+      const res = await loadData(url);
+      const { data } = res;
+      settransactions(data.data);
       setFetching(false);
     };
     getData();
   }, []);
-
   const getTransactionOnClick = async (
-    cardID: any,
-    transaction: any,
+    // cardID: any,
+    transactionID: any,
     e: React.MouseEvent<HTMLElement>
   ) => {
     e.preventDefault();
-    const url = ` http://localhost:9090/cards/${cardID}`;
-    const res = await axios.get(url);
-    const { data } = res;
-    setCard(data.card);
+    const url = ` http://localhost:9090/transactions/${transactionID}`;
+    const data = await loadData(url);
     navigate("../viewTransaction", {
       state: {
-        transaction: transaction,
-        card: data.card,
+        transaction: data.data.transaction,
+        card: data.data.transaction.card,
       },
     });
   };

@@ -22,7 +22,7 @@ const CardTable = ({ data, setCurrentCard }: any) => {
                 <td>
                   <small>{card["uuid"]}</small>
                 </td>
-                <td>{card["balance"].toFixed(2)}</td>
+                <td>{card["balance"]}</td>
                 <td>{card["cardType"]}</td>
                 <td>
                   <Button variant="none" onClick={() => setCurrentCard(card)}>

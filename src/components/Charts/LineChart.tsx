@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Bar, Bubble, Line, PolarArea, Scatter } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import axios from "axios";
 Chart.register(...registerables);
@@ -14,7 +14,7 @@ const LineChart = () => {
   }, []);
 
   const getData = async () => {
-    const response = await axios.post(url, { month: 10 });
+    const response = await axios.get(url);
     setDataArray(response.data.countStatsArray);
   };
   return (
@@ -39,7 +39,9 @@ const LineChart = () => {
           datasets: [
             {
               label: "Transactions",
-              data: [65, 59, 80, 81, 56, 55, 40, 80, 90, 150, 200, 250],
+              // data: [65, 59, 80, 81, 56, 55, 40, 80, 90, 150, 200, 250],
+
+              data: dataArray,
               backgroundColor: ["rgba(73, 232, 192, 0.562)"],
               fill: true,
 

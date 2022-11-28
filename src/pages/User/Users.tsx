@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Search from "../../components/Search/Search";
 import CustomPagination from "../../components/Pagination";
@@ -12,7 +11,7 @@ import UserTable from "../../components/User/UserTable";
 
 const AllUsers = () => {
   const url = "http://localhost:9090/users";
-  const [search, setSearch] = useState(" ");
+  const [search, setSearch] = useState<any>("");
   const [users, setUsers] = useState([]);
   const [fetching, setFetching] = useState(true);
 
@@ -23,7 +22,7 @@ const AllUsers = () => {
     if (filterQuery) {
       const getUsers = async () => {
         const data = await filterResults(url, filterQuery);
-        setUsers(data.users);
+        setUsers(data.data.data);
         setFetching(false);
       };
       getUsers();
@@ -49,7 +48,7 @@ const AllUsers = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await loadData(`${url}?search=${search}`);
-      setUsers(data.users);
+      setUsers(data.data.data);
       setFetching(false);
     };
     getUsers();

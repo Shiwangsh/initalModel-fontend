@@ -14,7 +14,6 @@ const EditStaff = () => {
     id: user._id,
     name: user.name,
     email: user.email,
-    password: user.password,
     address: user.address,
     contactNumber: user.contactNumber,
     staffType: user.staffType,
@@ -120,21 +119,6 @@ const EditStaff = () => {
               </div>
             </div>
 
-            <hr />
-
-            <div className="row">
-              <div className="col-sm-3">
-                <p className="mb-0">Password</p>
-              </div>
-              <div className="col-sm-9">
-                <input
-                  className="form-control rounded-left w-25"
-                  name="password"
-                  value={fieldValue.password}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
             <hr />
 
             <div className="row">

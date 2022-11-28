@@ -1,6 +1,5 @@
 import {
   faEye,
-  faPenToSquare,
   faToggleOff,
   faToggleOn,
 } from "@fortawesome/free-solid-svg-icons";
@@ -9,12 +8,19 @@ import axios from "axios";
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import authHeader from "../../services/auth-header";
 
 const UserTable = ({ users }: any) => {
   const navigate = useNavigate();
   const toggleActive = async (userID: any) => {
     await axios
-      .patch(`http://localhost:9090/users/${userID}/active`)
+      .patch(
+        `http://localhost:9090/users/${userID}/active`,
+        {},
+        {
+          headers: authHeader(),
+        }
+      )
       .then((res) => {
         navigate(0);
       })

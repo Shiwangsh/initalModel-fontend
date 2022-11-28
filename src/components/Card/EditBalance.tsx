@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import authHeader from "../../services/auth-header";
 import ErrorModal from "../ErrorModal";
 import SucessModal from "../SucessModal";
 
@@ -17,10 +18,14 @@ const EditBalance = ({ card }: any) => {
     console.log(card);
     const url = `http://localhost:9090/cards/loadBalance`;
     await axios
-      .post(url, {
-        cardID: card.uuid,
-        balance: +newBalance,
-      })
+      .post(
+        url,
+        {
+          cardID: card.uuid,
+          balance: +newBalance,
+        },
+        { headers: authHeader() }
+      )
       .then((res) => {
         console.log(res);
 

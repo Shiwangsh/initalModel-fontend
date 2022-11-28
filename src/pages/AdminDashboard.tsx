@@ -12,8 +12,8 @@ const AdminDashboard = () => {
         <div
           style={{
             display: "flex",
-            backgroundColor: "#ffffff",
-            // height: "100vh",
+            backgroundColor: "#e7e7e7",
+            height: "100vh",
           }}
         >
           {/* <Navbar /> */}
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
             <Outlet />
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </>
     );
   }

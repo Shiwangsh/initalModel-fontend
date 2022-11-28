@@ -2,14 +2,16 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
+import Card from "react-bootstrap/Card";
 import Search from "../../components/Search/Search";
 
 import ReactLoading from "react-loading";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import loadData from "../../services/load-data";
 
 const AllRoute = () => {
-  const [routes, setRoutes] = useState([]);
+  const [routes, setRoutes] = useState<any>([]);
   const [route, setRoute] = useState();
 
   const [fetching, setFetching] = useState(true);
@@ -19,11 +21,10 @@ const AllRoute = () => {
 
   useEffect(() => {
     const getRoute = async () => {
-      const url = `http://localhost:9090/routes?search=${search}`;
-      const res = await axios.get(url);
-      const { data } = res;
-      setRoutes(data.routes);
-      console.log(data.routes);
+      const url = `http://localhost:9090/routes`;
+
+      const res = await loadData(url);
+      setRoutes(res.data.data);
       setFetching(false);
     };
     getRoute();
@@ -36,51 +37,58 @@ const AllRoute = () => {
       });
   }, [navigate, route]);
 
-  const getRouteOnClick = async (
-    routeID: any,
-    e: React.MouseEvent<HTMLElement>
-  ) => {
-    e.preventDefault();
-    const url = ` http://localhost:9090/routes/${routeID}`;
-    const res = await axios.get(url);
-    const { data } = res;
-    setRoute(data.route);
-  };
+  // const getRouteOnClick = async (
+  //   routeID: any,
+  //   e: React.MouseEvent<HTMLElement>
+  // ) => {
+  //   e.preventDefault();
+  //   const url = ` http://localhost:9090/routes/${routeID}`;
+  //   const res = await axios.get(url);
+  //   const { data } = res;
+  //   setRoute(data.route);
+  // };
 
   if (fetching) return <ReactLoading type="bubbles" color="#000000" />;
   return (
     <>
-      <Search
+      {/* <Search
         setSearch={(search: any) => setSearch(search)}
         placeHolder="Enter name to search"
-      />
+      /> */}
       <Link to="../createRoute">Add Route</Link>
-      <div className="m-2">
-        <Table striped bordered hover responsive className="w-75 mx-auto">
-          <thead className="thead-dark text-center">
-            <tr>
-              <th>Routes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {routes.map((obj, index) => {
-              return (
-                <tr key={index} className="text-center">
-                  <td>
-                    {obj["routeName"]}
-                    <br />
-                    <Button
-                      variant="outline-info"
-                      onClick={(e) => getRouteOnClick(obj["_id"], e)}
-                    >
-                      View Route details
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+      <div className="row">
+        {routes.map((route: any, index: any) => {
+          console.log(route);
+          return (
+            <div className="col" key={index}>
+              <Card className="mb-2" bg="dark" style={{ color: "#dbe8ff" }}>
+                <Card.Header>{route["routeName"]}</Card.Header>
+                <Card.Body>
+                  <p>Route ID:{route["_id"]}</p>
+                  <Card.Text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Consectetur, molestias! Officia dolorum esse nobis
+                    aspernatur laborum id dignissimos adipisci debitis hic
+                    molestias!
+                  </Card.Text>
+                  <Card.Title style={{ color: "#fff" }}>
+                    No. of Stops:{route["stops"].length}
+                  </Card.Title>
+                  <Button
+                    variant="outline-info"
+                    onClick={() => {
+                      navigate("../viewRoute", {
+                        state: { route: route },
+                      });
+                    }}
+                  >
+                    View Route details
+                  </Button>
+                </Card.Body>
+              </Card>
+            </div>
+          );
+        })}
       </div>
     </>
   );

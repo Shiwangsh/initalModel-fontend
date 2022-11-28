@@ -51,7 +51,6 @@ export default function ViewRoute() {
             draggable: false,
             editable: false,
             visible: true,
-            // radius: 30000,
           }}
         />
         ;
@@ -106,8 +105,8 @@ export default function ViewRoute() {
 
         <h4>Stops details</h4>
         <hr style={{ backgroundColor: "#000" }} />
-        <Table bordered responsive size="sm">
-          <thead className="thead-light">
+        <Table bordered responsive size="sm" variant="dark">
+          <thead className="thead-dark">
             <tr>
               <th>Stop Number</th>
               <th>Stop Name</th>

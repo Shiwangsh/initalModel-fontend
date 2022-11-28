@@ -17,15 +17,23 @@ const BusFilter = ({ setFilterQuery }: any) => {
   useEffect(() => {
     const getRoutes = async () => {
       const data = await loadData("http://localhost:9090/routes");
-      setRoutes(data.routes);
+      setRoutes(data.data.data);
     };
     getRoutes();
   }, []);
 
   return (
-    <div className="w-50">
-      <Form className="mt-2">
+    <div className="w-75">
+      <Form className="ml-2">
         <Row>
+          <Form.Group as={Col}>
+            <Form.Control
+              name="regNum"
+              onChange={handleChange}
+              placeholder="Enter reg Num"
+            />
+          </Form.Group>
+
           <Form.Group as={Col}>
             <Form.Control
               name="_id"

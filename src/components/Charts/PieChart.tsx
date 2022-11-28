@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Doughnut, Pie, PolarArea } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import axios from "axios";
+import authHeader from "../../services/auth-header";
 Chart.register(...registerables);
 
 const PieChart = () => {
@@ -12,9 +13,9 @@ const PieChart = () => {
   useEffect(() => {
     const getcards = async () => {
       const url = `http://localhost:9090/cards`;
-      const res = await axios.get(url);
+      const res = await axios.get(url, { headers: authHeader() });
       const { data } = res;
-      setcards(data.cards);
+      setcards(data.data.data);
     };
     getcards();
   }, []);
@@ -38,23 +39,15 @@ const PieChart = () => {
 
   return (
     <div>
-      <Doughnut
+      <Pie
         data={{
           labels: keys,
           datasets: [
             {
               label: "# of Cards",
               data: values,
-              backgroundColor: [
-                "rgba(255, 99, 132)",
-                "rgba(54, 162, 235)",
-                "rgba(255, 206, 86)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-              ],
+              backgroundColor: ["#00ffea", "#00c4b373", "#00d8c6"],
+              borderColor: ["#00c7b6", "#00c7b6", "#00c7b6"],
               borderWidth: 1,
             },
           ],

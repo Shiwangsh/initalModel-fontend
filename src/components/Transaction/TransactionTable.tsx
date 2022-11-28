@@ -6,8 +6,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const TransactionTable = ({ data, getTransaction }: any) => {
+  const navigate = useNavigate();
+
   return (
     <div className="m-2">
       <Table striped bordered hover responsive size="sm">
@@ -16,7 +19,8 @@ const TransactionTable = ({ data, getTransaction }: any) => {
             <th>ID</th>
             <th>Status</th>
             <th>Type</th>
-            <th>Date and Time</th>
+            <th>Date</th>
+            <th>Time</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -62,15 +66,28 @@ const TransactionTable = ({ data, getTransaction }: any) => {
                   </td>
                 )}
                 <td>
-                  {transaction["createdAt"].substring(0, 10)} ,{" "}
-                  {transaction["createdAt"].substring(11, 18)}{" "}
+                  {new Date(transaction.createdAt).toDateString()}
+                  {/* {transaction["createdAt"].substring(0, 10)} ,{" "}
+                  {transaction["createdAt"].substring(11, 18)}{" "} */}
+                </td>
+                <td>
+                  {new Date(transaction.createdAt)
+                    .toTimeString()
+                    .substring(0, 9)}
                 </td>
                 <td>
                   <Button
                     variant="none"
-                    onClick={(e) =>
-                      getTransaction(transaction["card"], transaction, e)
-                    }
+                    onClick={(e) => getTransaction(transaction["_id"], e)}
+
+                    // onClick={() =>
+                    //   navigate("../viewTransaction", {
+                    //     state: {
+                    //       transaction: transaction,
+                    //       card: transaction.card,
+                    //     },
+                    //   })
+                    // }
                   >
                     <FontAwesomeIcon icon={faEye} color="#0b7312" />
                   </Button>

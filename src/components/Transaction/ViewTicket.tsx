@@ -1,12 +1,12 @@
 import axios from "axios";
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 const ViewTicket = ({ ticket, card }: any) => {
   const navigate = useNavigate();
-  console.log(ticket);
-  console.log(card);
+  // console.log(ticket);
+  // console.log(card);
   return (
     <section style={{ backgroundColor: "#ffffff" }}>
       <div className="container">
@@ -116,7 +116,9 @@ const ViewTicket = ({ ticket, card }: any) => {
                   <p className="mb-0">Created At</p>
                 </div>
                 <div className="col-sm-9">
-                  <p className="text-muted mb-0">{ticket["createdAt"]}</p>
+                  <p className="text-muted mb-0">
+                    {new Date(ticket.createdAt).toString()}
+                  </p>
                 </div>
               </div>
             </div>

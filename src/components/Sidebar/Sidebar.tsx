@@ -33,7 +33,11 @@ const Sidiebar = () => {
   const user = JSON.parse(staff);
 
   return (
-    <Sidebar style={{ color: "#fff" }} defaultCollapsed={true}>
+    <Sidebar
+      backgroundColor="#252525"
+      defaultCollapsed={true}
+      style={{ color: "#2bc9a9b5" }}
+    >
       <Button
         className="m-3"
         variant="outline-info"
@@ -41,7 +45,8 @@ const Sidiebar = () => {
       >
         <FontAwesomeIcon icon={faBars} />
       </Button>
-      <Menu style={{ color: "#38b297" }} closeOnClick={true}>
+      {/* style={{ color: "#38b297" }} */}
+      <Menu closeOnClick={true}>
         <MenuItem
           routerLink={<Link to="home" />}
           icon={<FontAwesomeIcon icon={faHome} size="lg" />}

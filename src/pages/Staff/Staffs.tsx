@@ -22,7 +22,7 @@ const Staffs = () => {
     if (filterQuery) {
       const getUsers = async () => {
         const data = await filterResults(url, filterQuery);
-        setUsers(data.staffs);
+        setUsers(data.data.data);
         setFetching(false);
       };
       getUsers();
@@ -48,7 +48,7 @@ const Staffs = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await loadData(`${url}?search=${search}`);
-      setUsers(data.staffs);
+      setUsers(data.data.data);
       setFetching(false);
     };
     getUsers();

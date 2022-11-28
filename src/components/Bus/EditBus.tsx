@@ -25,7 +25,7 @@ const EditBus = ({ bus, closePopup }: any | (() => any)) => {
   useEffect(() => {
     const getRoutes = async () => {
       const data = await loadData("http://localhost:9090/routes");
-      setRoutes(data.routes);
+      setRoutes(data.data.data);
     };
     getRoutes();
   }, []);
@@ -41,7 +41,7 @@ const EditBus = ({ bus, closePopup }: any | (() => any)) => {
   const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     console.log(fieldValue);
-    const url = `http://localhost:9090/buses`;
+    const url = `http://localhost:9090/buses/${fieldValue.id}`;
     await axios
       .patch(url, fieldValue, { headers: authHeader() })
       .then((res) => {

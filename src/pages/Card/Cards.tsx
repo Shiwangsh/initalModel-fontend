@@ -26,7 +26,7 @@ const AllCards = () => {
     if (filterQuery) {
       const getData = async () => {
         const data = await filterResults(url, filterQuery);
-        setcards(data.cards);
+        setcards(data.data.data);
         setFetching(false);
       };
       getData();
@@ -50,8 +50,8 @@ const AllCards = () => {
   // Get Cards
   useEffect(() => {
     const getData = async () => {
-      const data = await loadData(`${url}?search=${search}`);
-      setcards(data.cards);
+      const data = await loadData(url);
+      setcards(data.data.data);
       setFetching(false);
     };
     getData();
@@ -76,10 +76,10 @@ const AllCards = () => {
     );
   return (
     <>
-      <Search
+      {/* <Search
         setSearch={(search: any) => setSearch(search)}
         placeHolder="Enter ID to search"
-      />
+      /> */}
       <Button
         variant="outline-info"
         className="m-2"

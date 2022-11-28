@@ -35,11 +35,10 @@ const EditUser = ({ user, onActionChange }: any | (() => any)) => {
         headers: AuthHeader(),
       })
       .then((res) => {
-        console.log(res.data.user);
-
         navigate(0);
+        const { data } = res;
+        navigate("../userProfile", { state: { user: data.data.data } });
         onActionChange("view");
-        navigate("../userProfile", { state: { user: res.data.user } });
       })
       .catch((error) => {
         if (error.response) {

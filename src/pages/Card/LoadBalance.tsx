@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import authHeader from "../../services/auth-header";
 import EditBalance from "../../components/Card/EditBalance";
 import ErrorModal from "../../components/ErrorModal";
 
@@ -14,7 +15,7 @@ const LoadBalance = () => {
     e.preventDefault();
     const url = `http://localhost:9090/cards/${cardID}`;
     await axios
-      .get(url)
+      .get(url, { headers: authHeader() })
       .then((res) => {
         setCard(res.data.card);
       })

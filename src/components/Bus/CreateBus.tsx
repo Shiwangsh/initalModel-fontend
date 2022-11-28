@@ -7,6 +7,7 @@ import ErrorModal from "../ErrorModal";
 import SucessModal from "../SucessModal";
 import loadData from "../../services/load-data";
 import Form from "react-bootstrap/Form";
+import authHeader from "../../services/auth-header";
 
 const CreateBus = () => {
   const [fieldValue, setFieldValue] = useState<any>();
@@ -19,7 +20,7 @@ const CreateBus = () => {
   useEffect(() => {
     const getRoutes = async () => {
       const data = await loadData("http://localhost:9090/routes");
-      setRoutes(data.routes);
+      setRoutes(data.data.data);
     };
     getRoutes();
   }, []);
@@ -38,7 +39,7 @@ const CreateBus = () => {
 
     const url = `http://localhost:9090/Buses/`;
     await axios
-      .post(url, fieldValue)
+      .post(url, fieldValue, { headers: authHeader() })
       .then((res) => {
         console.log(res);
 
