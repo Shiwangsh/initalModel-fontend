@@ -88,7 +88,14 @@ const ViewCard = () => {
     });
   };
 
-  if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
+  if (fetching)
+    return (
+      <ReactLoading
+        type="spinningBubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
   console.log(card.user.active);
 
   return (

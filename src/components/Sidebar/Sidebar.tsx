@@ -3,7 +3,6 @@ import {
   faCreditCard,
   faBusSimple,
   faRoute,
-  faTicket,
   faMoneyBills,
   faRobot,
   faBars,
@@ -13,6 +12,7 @@ import {
   faUserTie,
   faFileInvoiceDollar,
   faPlus,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -108,18 +108,7 @@ const Sidiebar = () => {
         >
           Routes
         </MenuItem>
-        <MenuItem
-          routerLink={<Link to="loadBalance" />}
-          icon={<FontAwesomeIcon icon={faMoneyBills} size="lg" />}
-        >
-          Load Balance
-        </MenuItem>
-        <MenuItem
-          routerLink={<Link to="simulateTap" />}
-          icon={<FontAwesomeIcon icon={faRobot} size="lg" />}
-        >
-          Simulate Tap
-        </MenuItem>
+        <hr style={{ background: "#76fff4", height: "1px" }} />
         {user.staffType === "Admin" ? (
           <SubMenu
             label="Staffs"
@@ -138,6 +127,30 @@ const Sidiebar = () => {
               Add Staff
             </MenuItem>
           </SubMenu>
+        ) : null}
+        {user.staffType === "Admin" ? (
+          <MenuItem
+            routerLink={<Link to="loadBalance" />}
+            icon={<FontAwesomeIcon icon={faMoneyBills} size="lg" />}
+          >
+            Load Balance
+          </MenuItem>
+        ) : null}
+        {user.staffType === "Admin" ? (
+          <MenuItem
+            routerLink={<Link to="simulateTap" />}
+            icon={<FontAwesomeIcon icon={faRobot} size="lg" />}
+          >
+            Simulate Tap
+          </MenuItem>
+        ) : null}
+        {user.staffType === "Admin" ? (
+          <MenuItem
+            routerLink={<Link to="searchRoute" />}
+            icon={<FontAwesomeIcon icon={faSearch} size="lg" />}
+          >
+            Search Route
+          </MenuItem>
         ) : null}
       </Menu>
     </Sidebar>

@@ -28,6 +28,7 @@ import About from "./pages/About";
 import FAQs from "./pages/FAQs";
 import Legal from "./pages/Legal";
 import EditStaff from "./components/Staff/EditStaff";
+import SearchRoute from "./pages/SearchCustomRoute/SearchRoute";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="viewTransaction" element={<ViewTransaction />} />
           <Route path="simulateTap" element={<SimulateTap />} />
           <Route path="sidebar" element={<Sidebar />} />
+          <Route path="searchRoute" element={<SearchRoute />} />
         </Route>
         <Route path="401" element={<UnauthorizedPage />} />
         <Route path="*" element={<Notfound />} />

@@ -13,7 +13,8 @@ const AdminDashboard = () => {
           style={{
             display: "flex",
             backgroundColor: "#e7e7e7",
-            height: "100vh",
+            width: "100vw",
+            minHeight: "100vh",
           }}
         >
           {/* <Navbar /> */}

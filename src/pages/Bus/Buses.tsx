@@ -5,7 +5,6 @@ import Table from "react-bootstrap/Table";
 import ReactLoading from "react-loading";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Search from "../../components/Search/Search";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditBus from "../../components/Bus/EditBus";
@@ -13,6 +12,7 @@ import CustomPagination from "../../components/Pagination";
 import filterResults from "../../services/filter-results";
 import BusFilter from "../../components/Bus/FilterBus";
 import loadData from "../../services/load-data";
+import authHeader from "../../services/auth-header";
 
 const AllCards = () => {
   const [buses, setBuses] = useState<any>();
@@ -58,11 +58,11 @@ const AllCards = () => {
   useEffect(() => {
     const getBuses = async () => {
       const res = await loadData(`http://localhost:9090/buses`);
-      setBuses(res.buses);
+      setBuses(res.data.data);
       setFetching(false);
     };
     getBuses();
-  }, [search]);
+  }, []);
 
   useEffect((): any => {
     if (route) {
@@ -73,14 +73,15 @@ const AllCards = () => {
   }, [route, navigate]);
 
   const getRouteOnClick = async (
-    route: any,
+    routeID: any,
     e: React.MouseEvent<HTMLElement>
   ) => {
     e.preventDefault();
-    // const url = ` http://localhost:9090/routes/${routeID}`;
-    // const res = await axios.get(url);
-    // const { data } = res;
-    setRoute(route);
+    console.log(routeID);
+    const url = ` http://localhost:9090/routes/${routeID}`;
+    const res = await axios.get(url, { headers: authHeader() });
+    const { data } = res;
+    setRoute(data.data.data);
   };
 
   const editBus = (bus: any, e: React.MouseEvent<HTMLElement>) => {
@@ -136,7 +137,8 @@ const AllCards = () => {
                     variant="outline-dark"
                     onClick={(e) => getRouteOnClick(bus["route"], e)}
                   >
-                    {bus["route"]["routeName"]}
+                    {/* {bus["route"]["routeName"]} */}
+                    View Route
                   </Button>
                 </td>
                 <td>

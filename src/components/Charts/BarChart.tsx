@@ -16,6 +16,7 @@ const BarChart = () => {
   const getData = async () => {
     const response = await axios.get(url);
     setDataArray(response.data.countStatsArray);
+    console.log(response);
   };
 
   return (

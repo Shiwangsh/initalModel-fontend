@@ -48,7 +48,14 @@ const AllRoute = () => {
   //   setRoute(data.route);
   // };
 
-  if (fetching) return <ReactLoading type="bubbles" color="#000000" />;
+  if (fetching)
+    return (
+      <ReactLoading
+        type="bubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
   return (
     <>
       {/* <Search

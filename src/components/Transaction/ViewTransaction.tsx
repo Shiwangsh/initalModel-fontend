@@ -55,7 +55,14 @@ const ViewTransaction = () => {
       // getPayment();
     }
   }, [transaction._id, transaction.type]);
-  if (fetching) return <ReactLoading type="spinningBubbles" color="#000000" />;
+  if (fetching)
+    return (
+      <ReactLoading
+        type="spinningBubbles"
+        color="#000000"
+        className="container align-items-center"
+      />
+    );
 
   return type === "ticket" && card ? (
     <div>

@@ -2,9 +2,7 @@ import {
   faArrowDown,
   faArrowUp,
   faBus,
-  faCreditCard,
   faFileInvoiceDollar,
-  faMoneyBills,
   faRoute,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -113,11 +111,9 @@ const Home = () => {
                     style={{
                       left: "50px",
                       top: "0px",
-
                       fontWeight: "700",
                       fontSize: "28px",
                       lineHeight: "34px",
-
                       color: "#FFFFFF",
                     }}
                   >
@@ -171,7 +167,7 @@ const Home = () => {
           </div>
           <div className="col">
             {/* <div className="card"> */}
-            <div className="card  mb-2">
+            <div className="card mb-2">
               <p className="text-muted m-2">Today's Transaction #</p>
               <h2 className="text-left pl-4">
                 <span>{transactionsToday}</span>
