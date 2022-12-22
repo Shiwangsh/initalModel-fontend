@@ -10,7 +10,7 @@ import {
   faMoneyBill1Wave,
   faTrainSubway,
 } from "@fortawesome/free-solid-svg-icons";
-import ErrorModal from "../ErrorModal";
+import ErrorModal from "../Modals/ErrorModal";
 import loadData from "../../services/load-data";
 import TransactionTable from "../Transaction/TransactionTable";
 import CustomPagination from "../Pagination";

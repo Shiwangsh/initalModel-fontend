@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import authHeader from "../../services/auth-header";
-import ErrorModal from "../ErrorModal";
-import SucessModal from "../SucessModal";
+import ErrorModal from "../Modals/ErrorModal";
+import SucessModal from "../Modals/SucessModal";
 
 const EditBalance = ({ card }: any) => {
   const navigate = useNavigate();

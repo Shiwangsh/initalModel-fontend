@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import authHeader from "../../services/auth-header";
 import EditBalance from "../../components/Card/EditBalance";
-import ErrorModal from "../../components/ErrorModal";
+import ErrorModal from "../../components/Modals/ErrorModal";
 
 const LoadBalance = () => {
   const [cardID, setCardID] = useState<any>();

@@ -29,6 +29,7 @@ import FAQs from "./pages/FAQs";
 import Legal from "./pages/Legal";
 import EditStaff from "./components/Staff/EditStaff";
 import SearchRoute from "./pages/SearchCustomRoute/SearchRoute";
+import TestRoute from "./pages/SearchCustomRoute/TestCustomRoute";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           <Route path="simulateTap" element={<SimulateTap />} />
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="searchRoute" element={<SearchRoute />} />
+          <Route path="testRoute" element={<TestRoute />} />
         </Route>
         <Route path="401" element={<UnauthorizedPage />} />
         <Route path="*" element={<Notfound />} />

@@ -5,8 +5,6 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import "./stopStyles.css";
 
 const ShowSingleRouteStops = ({ stops }: any) => {
-  //   console.log(stops);s
-
   return (
     <div className="d-flex flex-row flex-wrap">
       {stops.map((stop: any, index: any) => {

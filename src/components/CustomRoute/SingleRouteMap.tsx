@@ -8,10 +8,15 @@ import {
 import ReactLoading from "react-loading";
 
 import ShowSingleRouteStops from "./ShowSingleRouteStops";
+import ShowBusInfo from "./ShowBusInfo";
 
 const SingleMapRoute = ({ data }: any) => {
+  const [userRoute, setUserRoute] = useState<any>(data.userRoute[0]);
   const [userStops, setUserStops] = useState<any>(data.userStops);
   const [currentBuses, setCurrentBuses] = useState<any>();
+  const [showBusData, setShowBusData] = useState<any>();
+
+  // console.log(">>>", data.userRoute[0].stops);
 
   useEffect(() => {
     if (data.buses) setCurrentBuses(data.buses);
@@ -20,6 +25,8 @@ const SingleMapRoute = ({ data }: any) => {
   const mapStyles = {
     height: "600px",
     width: "100%",
+    // disableDefaultUI: true,
+    mapTypeControl: false,
   };
 
   const customStyles = [
@@ -178,6 +185,9 @@ const SingleMapRoute = ({ data }: any) => {
   let coords = userStops.map((points: any) => {
     return { lat: points.latitude, lng: points.longitude };
   });
+  let userRoutecoords = userRoute.stops.map((points: any) => {
+    return { lat: points.latitude, lng: points.longitude };
+  });
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCgQwreil00NWmBry9d-ChiSiyk2tROwWU",
@@ -190,7 +200,9 @@ const SingleMapRoute = ({ data }: any) => {
         className="container align-items-center"
       />
     );
-
+  const showBusInfo = (bus: any) => {
+    showBusData === bus ? setShowBusData("") : setShowBusData(bus);
+  };
   return (
     <div className="m-2">
       <GoogleMap
@@ -199,6 +211,17 @@ const SingleMapRoute = ({ data }: any) => {
         mapContainerStyle={mapStyles}
         options={{ styles: customStyles }}
       >
+        <PolylineF
+          path={userRoutecoords}
+          options={{
+            strokeColor: "#5fb5b5a0",
+            strokeWeight: 3,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+          }}
+        />
         <PolylineF
           path={coords}
           options={{
@@ -240,17 +263,20 @@ const SingleMapRoute = ({ data }: any) => {
                     lng: bus.longitude,
                   }}
                   icon={{
-                    path: "M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z",
-                    fillColor: "#ff0000",
+                    // path: "M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z",
+                    path: "M256 0C390.4 0 480 35.2 480 80V96l0 32c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32l0 160c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H384c-17.7 0-32-14.3-32-32V448H160v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32l0-160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h0V96h0V80C32 35.2 121.6 0 256 0zM96 160v96c0 17.7 14.3 32 32 32H240V128H128c-17.7 0-32 14.3-32 32zM272 288H384c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32H272V288zM112 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zM352 80c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16s7.2 16 16 16H336c8.8 0 16-7.2 16-16z",
+                    fillColor: "#00ff6a",
                     fillOpacity: 1,
                     scale: 0.04,
-                    strokeColor: "#ffffff",
-                    strokeWeight: 2,
+                    // strokeColor: "#ffffff",
+                    strokeWeight: 1,
                   }}
+                  onClick={() => showBusInfo(bus)}
                 />
               );
             })
           : null}
+        {showBusData ? <ShowBusInfo bus={showBusData} /> : null}
       </GoogleMap>
       <h1 style={{ color: "#00d9ff" }}>No. of Stops:{userStops.length}</h1>
       <ShowSingleRouteStops stops={userStops} />

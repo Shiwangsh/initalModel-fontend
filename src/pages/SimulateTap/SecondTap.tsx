@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import ErrorModal from "../../components/ErrorModal";
-import SucessModal from "../../components/SucessModal";
+import ErrorModal from "../../components/Modals/ErrorModal";
+import SucessModal from "../../components/Modals/SucessModal";
 import loadData from "../../services/load-data";
 import Form from "react-bootstrap/Form";
 

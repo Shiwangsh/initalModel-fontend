@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import authHeader from "../../services/auth-header";
 import loadData from "../../services/load-data";
-import ErrorModal from "../ErrorModal";
+import ErrorModal from "../Modals/ErrorModal";
 import Form from "react-bootstrap/Form";
 
 const EditBus = ({ bus, closePopup }: any | (() => any)) => {

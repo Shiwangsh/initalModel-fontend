@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import ErrorModal from "../../components/ErrorModal";
-import SucessModal from "../../components/SucessModal";
+import ErrorModal from "../../components/Modals/ErrorModal";
+import SucessModal from "../../components/Modals/SucessModal";
 
 const FirstTap = () => {
   const [cardID, setCardID] = useState<any>();

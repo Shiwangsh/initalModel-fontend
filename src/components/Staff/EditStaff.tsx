@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import ErrorModal from "../ErrorModal";
+import ErrorModal from "../Modals/ErrorModal";
 import AuthHeader from "../../services/auth-header";
 
 const EditStaff = () => {

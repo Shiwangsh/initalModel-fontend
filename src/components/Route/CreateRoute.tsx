@@ -4,8 +4,8 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import ErrorModal from "../ErrorModal";
-import SucessModal from "../SucessModal";
+import ErrorModal from "../Modals/ErrorModal";
+import SucessModal from "../Modals/SucessModal";
 
 const CreateRoute = () => {
   const [routeName, setRouteName] = useState<any>();

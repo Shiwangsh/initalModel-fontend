@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../yatri.png";
-import ErrorModal from "../components/ErrorModal";
+import ErrorModal from "../components/Modals/ErrorModal";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
