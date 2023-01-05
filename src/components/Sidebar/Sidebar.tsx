@@ -25,6 +25,7 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
+import { faAndroid } from "@fortawesome/free-brands-svg-icons";
 
 const Sidiebar = () => {
   const { collapseSidebar } = useProSidebar();
@@ -150,6 +151,14 @@ const Sidiebar = () => {
           <MenuItem
             routerLink={<Link to="simulateTap" />}
             icon={<FontAwesomeIcon icon={faRobot} size="lg" />}
+          >
+            Simulate Tap
+          </MenuItem>
+        ) : null}
+        {user.staffType === "Admin" ? (
+          <MenuItem
+            routerLink={<Link to="simulateTapRevised" />}
+            icon={<FontAwesomeIcon icon={faAndroid} size="lg" />}
           >
             Simulate Tap
           </MenuItem>

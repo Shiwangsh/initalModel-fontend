@@ -30,6 +30,7 @@ import Legal from "./pages/Legal";
 import EditStaff from "./components/Staff/EditStaff";
 import SearchRoute from "./pages/SearchCustomRoute/SearchRoute";
 import TestRoute from "./pages/SearchCustomRoute/TestCustomRoute";
+import SimulateTapRevised from "./pages/SimulateTap/SimulateTapRevised";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
 
           <Route path="viewTransaction" element={<ViewTransaction />} />
           <Route path="simulateTap" element={<SimulateTap />} />
+          <Route path="simulateTapRevised" element={<SimulateTapRevised />} />
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="searchRoute" element={<SearchRoute />} />
           <Route path="testRoute" element={<TestRoute />} />
