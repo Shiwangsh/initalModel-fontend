@@ -62,8 +62,7 @@ const AllRoute = () => {
         setSearch={(search: any) => setSearch(search)}
         placeHolder="Enter name to search"
       /> */}
-      <Link to="../createRoute">Add Route</Link>
-      <div className="row">
+      <div className="row mt-2">
         {routes.map((route: any, index: any) => {
           console.log(route);
           return (

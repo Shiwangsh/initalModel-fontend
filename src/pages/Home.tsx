@@ -165,7 +165,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col">
+          <div className="col" style={{ minWidth: "300px" }}>
             {/* <div className="card"> */}
             <div className="card mb-2">
               <p className="text-muted m-2">Today's Transaction #</p>

@@ -7,22 +7,25 @@ import {
 } from "@react-google-maps/api";
 import ReactLoading from "react-loading";
 
-import ShowDoubleRouteStops from "./ShowDoubleRouteStops";
-import ShowBusInfo from "./ShowBusInfo";
+import ShowDoubleRouteStops from "../Stops/ShowDoubleRouteStops";
+import ShowBusInfo from "../Buses/ShowBusInfo";
+// import axios from "axios";
 
-const DoubleRouteMap = ({ data }: any) => {
+const DoubleRouteMap = ({ data, startStop, endStop }: any) => {
   const [userRoute1, setUserRoute1] = useState<any>(data.userRoute[0]);
   const [userRoute2, setUserRoute2] = useState<any>(data.userRoute[1]);
+  const [userFair, setUserFair] = useState<any>(data.userFair);
 
   const [userStops, setUserStops] = useState<any>(data.userStops);
   const [route1Buses, setRoute1Buses] = useState<any>();
   const [route2Buses, setRoute2Buses] = useState<any>();
   const [showBusData, setShowBusData] = useState<any>();
+  const userRouteName = `${startStop} to ${endStop}`;
 
   useEffect(() => {
     if (data.buses) {
-      setRoute1Buses(data.buses[0]);
-      setRoute2Buses(data.buses[1]);
+      setRoute1Buses(data.buses[1]);
+      setRoute2Buses(data.buses[0]);
     }
   }, [data.buses]);
 
@@ -210,6 +213,7 @@ const DoubleRouteMap = ({ data }: any) => {
     showBusData === bus ? setShowBusData("") : setShowBusData(bus);
   };
 
+  console.log("---->>", userStops[0][0].latitude);
   if (!isLoaded)
     return (
       <ReactLoading
@@ -253,7 +257,7 @@ const DoubleRouteMap = ({ data }: any) => {
         <PolylineF
           path={userRoutecoords2}
           options={{
-            strokeColor: "#8d489ecd",
+            strokeColor: "#8d489e89",
             strokeWeight: 3,
 
             clickable: false,
@@ -265,7 +269,7 @@ const DoubleRouteMap = ({ data }: any) => {
         <PolylineF
           path={stopsCoords2}
           options={{
-            strokeColor: "#713ac3cd",
+            strokeColor: "#713ac397",
             strokeWeight: 5,
 
             clickable: false,
@@ -274,7 +278,55 @@ const DoubleRouteMap = ({ data }: any) => {
             visible: true,
           }}
         />
-        {userStops[0].map((stop: any, index: any) => {
+        <MarkerF
+          //Pickup Marker
+          clickable={false}
+          position={{
+            lat: userStops[0][0].latitude,
+            lng: userStops[0][0].longitude,
+          }}
+          icon={{
+            path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
+            fillColor: "#00d5b9",
+            fillOpacity: 1,
+            scale: 0.05,
+            strokeColor: "#ffffffc0",
+            strokeWeight: 2,
+          }}
+        />
+        <MarkerF
+          //Drop point Marker
+          clickable={false}
+          position={{
+            lat: userStops[0][userStops[0].length - 1].latitude,
+            lng: userStops[0][userStops[0].length - 1].longitude,
+          }}
+          icon={{
+            path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
+            fillColor: "#0027d5",
+            fillOpacity: 1,
+            scale: 0.05,
+            strokeColor: "#ffffffc0",
+            strokeWeight: 2,
+          }}
+        />
+        <MarkerF
+          //Destination Marker
+          clickable={false}
+          position={{
+            lat: userStops[1][userStops[1].length - 1].latitude,
+            lng: userStops[1][userStops[1].length - 1].longitude,
+          }}
+          icon={{
+            path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
+            fillColor: "#8740f0",
+            fillOpacity: 1,
+            scale: 0.05,
+            strokeColor: "#ffffffc0",
+            strokeWeight: 2,
+          }}
+        />
+        {/* {userStops[0].map((stop: any, index: any) => {
           return (
             <MarkerF
               clickable={false}
@@ -313,7 +365,7 @@ const DoubleRouteMap = ({ data }: any) => {
               }}
             />
           );
-        })}
+        })} */}
         {typeof route1Buses !== "undefined"
           ? route1Buses.map((bus: any, index: any) => {
               return (
@@ -326,7 +378,7 @@ const DoubleRouteMap = ({ data }: any) => {
                     }}
                     icon={{
                       path: "M256 0C390.4 0 480 35.2 480 80V96l0 32c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32l0 160c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H384c-17.7 0-32-14.3-32-32V448H160v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32l0-160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h0V96h0V80C32 35.2 121.6 0 256 0zM96 160v96c0 17.7 14.3 32 32 32H240V128H128c-17.7 0-32 14.3-32 32zM272 288H384c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32H272V288zM112 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zM352 80c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16s7.2 16 16 16H336c8.8 0 16-7.2 16-16z",
-                      fillColor: "#00ff6a",
+                      fillColor: "#00d5b9",
                       fillOpacity: 1,
                       scale: 0.04,
                       // strokeColor: "#ffffff",
@@ -350,7 +402,7 @@ const DoubleRouteMap = ({ data }: any) => {
                     }}
                     icon={{
                       path: "M256 0C390.4 0 480 35.2 480 80V96l0 32c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32l0 160c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H384c-17.7 0-32-14.3-32-32V448H160v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32l0-160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h0V96h0V80C32 35.2 121.6 0 256 0zM96 160v96c0 17.7 14.3 32 32 32H240V128H128c-17.7 0-32 14.3-32 32zM272 288H384c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32H272V288zM112 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zM352 80c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16s7.2 16 16 16H336c8.8 0 16-7.2 16-16z",
-                      fillColor: "#00ff6a",
+                      fillColor: "#8640f0a9",
                       fillOpacity: 1,
                       scale: 0.04,
                       // strokeColor: "#ffffff",
@@ -364,10 +416,11 @@ const DoubleRouteMap = ({ data }: any) => {
           : null}
         {showBusData ? <ShowBusInfo bus={showBusData} /> : null}
       </GoogleMap>
-      <h1 style={{ color: "#00d9ff" }}>
-        No. of Stops:{userStops[0].length + userStops[1].length}
-      </h1>
-      <ShowDoubleRouteStops stops={userStops} />
+      <ShowDoubleRouteStops
+        stops={userStops}
+        userRouteName={userRouteName}
+        userFair={userFair}
+      />
     </div>
   );
 };

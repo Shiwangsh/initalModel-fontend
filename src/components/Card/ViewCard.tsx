@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
-
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faMoneyBill1Wave,
-  faTrainSubway,
-} from "@fortawesome/free-solid-svg-icons";
 import ErrorModal from "../Modals/ErrorModal";
 import loadData from "../../services/load-data";
 import TransactionTable from "../Transaction/TransactionTable";
@@ -201,83 +193,6 @@ const ViewCard = () => {
 };
 
 export default ViewCard;
-
-{
-  /* <Table striped bordered responsive size="sm">
-  <thead className="thead-dark">
-    <tr>
-      <th>ID</th>
-      <th>Status</th>
-      <th>Type</th>
-      <th>Date and Time</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {showData.map((transaction: any, index: any) => {
-      return (
-        <tr key={index}>
-          <td>
-            <small>{transaction["_id"]}</small>
-          </td>
-
-          {transaction["status"] === "Open" ? (
-            <td>
-              <span className="badge badge-pill badge-success">
-                {transaction["status"]}
-              </span>
-            </td>
-          ) : (
-            <td>
-              <span className="badge badge-pill badge-danger">
-                {transaction["status"]}
-              </span>
-            </td>
-          )}
-
-
-          {transaction["type"] === "Ticket" ? (
-            <td>
-              <span className="badge badge-">
-                <FontAwesomeIcon
-                  icon={faTrainSubway}
-                  className="pl-2"
-                  color="#b33059"
-                />
-              </span>
-            </td>
-          ) : (
-            <td>
-              <FontAwesomeIcon
-                icon={faMoneyBill1Wave}
-                className="pl-2"
-                color="#32a852"
-              />
-            </td>
-          )}
-
-          <td>
-            {transaction["createdAt"].substring(0, 10)},
-            {transaction["createdAt"].substring(11, 18)}
-          </td>
-          <td>
-            <Button
-              variant="none"
-              onClick={() =>
-                navigate("../viewTransaction", {
-                  state: { transaction: transaction, card: card },
-                })
-              }
-            >
-              <FontAwesomeIcon icon={faEye} color="#0b7312" />
-            </Button>
-          </td>
-        </tr>
-      );
-    })}
-  </tbody>
-</Table>; */
-}
 
 /**
  *

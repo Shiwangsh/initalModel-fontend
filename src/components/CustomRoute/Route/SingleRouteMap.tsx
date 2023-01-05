@@ -7,16 +7,19 @@ import {
 } from "@react-google-maps/api";
 import ReactLoading from "react-loading";
 
-import ShowSingleRouteStops from "./ShowSingleRouteStops";
-import ShowBusInfo from "./ShowBusInfo";
+import ShowSingleRouteStops from "../Stops/ShowSingleRouteStops";
+import ShowBusInfo from "../Buses/ShowBusInfo";
 
-const SingleMapRoute = ({ data }: any) => {
+const SingleMapRoute = ({ data, startStop, endStop }: any) => {
   const [userRoute, setUserRoute] = useState<any>(data.userRoute[0]);
   const [userStops, setUserStops] = useState<any>(data.userStops);
+  const [userFair, setUserFair] = useState<any>(data.userFair);
+
   const [currentBuses, setCurrentBuses] = useState<any>();
   const [showBusData, setShowBusData] = useState<any>();
+  const userRouteName = `${startStop} to ${endStop}`;
 
-  // console.log(">>>", data.userRoute[0].stops);
+  // console.log(">>>", data.userFair);
 
   useEffect(() => {
     if (data.buses) setCurrentBuses(data.buses);
@@ -234,7 +237,40 @@ const SingleMapRoute = ({ data }: any) => {
           }}
         />
 
-        {userStops.map((stop: any, index: any) => {
+        <MarkerF
+          //Pickup Marker
+          clickable={false}
+          position={{
+            lat: userStops[0].latitude,
+            lng: userStops[0].longitude,
+          }}
+          icon={{
+            path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
+            fillColor: "#00d5b9",
+            fillOpacity: 1,
+            scale: 0.05,
+            strokeColor: "#ffffffc0",
+            strokeWeight: 2,
+          }}
+        />
+        <MarkerF
+          //DropOff Marker
+          clickable={false}
+          position={{
+            lat: userStops[userStops.length - 1].latitude,
+            lng: userStops[userStops.length - 1].longitude,
+          }}
+          icon={{
+            path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z",
+            fillColor: "#00d5b9",
+            fillOpacity: 1,
+            scale: 0.05,
+            strokeColor: "#ffffffc0",
+            strokeWeight: 2,
+          }}
+        />
+
+        {/* {userStops.map((stop: any, index: any) => {
           return (
             <MarkerF
               key={index}
@@ -252,7 +288,7 @@ const SingleMapRoute = ({ data }: any) => {
               }}
             />
           );
-        })}
+        })} */}
         {typeof currentBuses !== "undefined"
           ? currentBuses.map((bus: any, index: any) => {
               return (
@@ -263,9 +299,8 @@ const SingleMapRoute = ({ data }: any) => {
                     lng: bus.longitude,
                   }}
                   icon={{
-                    // path: "M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z",
                     path: "M256 0C390.4 0 480 35.2 480 80V96l0 32c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32l0 160c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H384c-17.7 0-32-14.3-32-32V448H160v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32l0-160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h0V96h0V80C32 35.2 121.6 0 256 0zM96 160v96c0 17.7 14.3 32 32 32H240V128H128c-17.7 0-32 14.3-32 32zM272 288H384c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32H272V288zM112 400c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zM352 80c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16s7.2 16 16 16H336c8.8 0 16-7.2 16-16z",
-                    fillColor: "#00ff6a",
+                    fillColor: "#00d5b9",
                     fillOpacity: 1,
                     scale: 0.04,
                     // strokeColor: "#ffffff",
@@ -278,8 +313,11 @@ const SingleMapRoute = ({ data }: any) => {
           : null}
         {showBusData ? <ShowBusInfo bus={showBusData} /> : null}
       </GoogleMap>
-      <h1 style={{ color: "#00d9ff" }}>No. of Stops:{userStops.length}</h1>
-      <ShowSingleRouteStops stops={userStops} />
+      <ShowSingleRouteStops
+        stops={userStops}
+        userRouteName={userRouteName}
+        userFair={userFair}
+      />
     </div>
   );
 };

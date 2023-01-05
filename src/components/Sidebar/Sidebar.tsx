@@ -25,7 +25,6 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
-import LoginDropDown from "../Login/LoginDropDown";
 
 const Sidiebar = () => {
   const { collapseSidebar } = useProSidebar();
@@ -102,12 +101,23 @@ const Sidiebar = () => {
             Add a Bus
           </MenuItem>
         </SubMenu>
-        <MenuItem
-          routerLink={<Link to="routes" />}
+        <SubMenu
+          label="Routes"
           icon={<FontAwesomeIcon icon={faRoute} size="lg" />}
         >
-          Routes
-        </MenuItem>
+          <MenuItem
+            routerLink={<Link to="routes" />}
+            icon={<FontAwesomeIcon icon={faEye} size="lg" />}
+          >
+            View Routes
+          </MenuItem>
+          <MenuItem
+            routerLink={<Link to="createRoute" />}
+            icon={<FontAwesomeIcon icon={faPlus} size="lg" />}
+          >
+            Add Route
+          </MenuItem>
+        </SubMenu>
         <hr style={{ background: "#76fff4", height: "1px" }} />
         {user.staffType === "Admin" ? (
           <SubMenu

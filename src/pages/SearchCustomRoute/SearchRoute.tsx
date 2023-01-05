@@ -1,21 +1,20 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import SingleRouteMap from "../../components/CustomRoute/SingleRouteMap";
-import DoubleRouteMap from "../../components/CustomRoute/DoubleRouteMap";
+import SingleRouteMap from "../../components/CustomRoute/Route/SingleRouteMap";
+import DoubleRouteMap from "../../components/CustomRoute/Route/DoubleRouteMap";
 import loadData from "../../services/load-data";
 import StopsModal1 from "../../components/Modals/StopsModal1";
 import StopsModal2 from "../../components/Modals/StopModal2";
 import ErrorModal from "../../components/Modals/ErrorModal";
+
 const SearchRoute = () => {
   const [startStop, setStartStop] = useState<any>();
   const [endStop, setEndStop] = useState<any>();
   const [stops, setStops] = useState<any>();
   const [showModal1, setShowModal1] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
-
   const [error, setError] = useState<any>();
-
   const [result, setResult] = useState<any>();
 
   const handleSubmit = async (e: any) => {
@@ -80,7 +79,6 @@ const SearchRoute = () => {
       {error ? (
         <ErrorModal text={error} closePopup={() => setError(false)} />
       ) : null}
-      SearchRoute
       <form className="form-inline p-3" onSubmit={(e: any) => handleSubmit(e)}>
         <input
           type="text"
@@ -133,10 +131,10 @@ const SearchRoute = () => {
         ) : null}
       </div>
       {result && result["result"] === 1 ? (
-        <SingleRouteMap data={result} />
+        <SingleRouteMap data={result} startStop={startStop} endStop={endStop} />
       ) : null}
       {result && result["result"] === 2 ? (
-        <DoubleRouteMap data={result} />
+        <DoubleRouteMap data={result} startStop={startStop} endStop={endStop} />
       ) : null}
     </div>
   );
